@@ -10,16 +10,17 @@ SHELL = /bin/bash -o pipefail
 # A list of all test names
 TESTS ?= $(notdir $(basename $(wildcard test/*_test.nim)))
 
-# Stand alone binaries
-BINS = $(addprefix build/,$(notdir $(basename $(wildcard bin/*.nim))))
-
 # Run all targets
 .PHONY: all
-all: build/readme_* $(BINS) test
+all: build/readme_* bin test
 
 # Run all tests
 .PHONY: test
 test: $(TESTS)
+
+# Build all binaries
+.PHONY: bin
+bin: $(addprefix build/,$(notdir $(basename $(wildcard bin/*.nim))))
 
 
 # Compiles a nim file
@@ -81,7 +82,7 @@ build/readme_%: README.md
 	@echo "$$EXTRACT_README_CODE" > build/extract_readme_code.nim
 	$(call COMPILE,build/extract_readme_code.nim)
 	@build/extract_readme_code
-	ls build/readme_*.nim | xargs -n1 nim check --path:.
+	ls build/readme_*.nim | xargs -n1 nim check --verbosity:0 --path:.
 
 
 # Watches for changes and reruns
@@ -89,7 +90,7 @@ build/readme_%: README.md
 watch:
 	$(eval MAKEFLAGS += " -s ")
 	@while true; do \
-		make TESTS="$(TESTS)"; \
+		make $(WATCH) TESTS="$(TESTS)"; \
 		inotifywait -qre close_write `find . -name "*.nim"` > /dev/null; \
 		echo "Change detected, re-running..."; \
 	done
