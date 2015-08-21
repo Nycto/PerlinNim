@@ -6,9 +6,9 @@ import perlin, math, strutils
 
 randomize()
 
-var noise = newPerlin()
+var noise = newPerlin(8, 10)
 
-for y in 0..200:
+for y in 0..100:
     let offset = int(noise.get(PI, float(y), E) * 80)
     stdout.write(repeatChar(offset, ' '))
     stdout.write(".\n")

@@ -12,7 +12,14 @@ import sequtils, math, random/mersenne
 type
     Perlin* = object
         ## A perl noise instance
+        ## * `perm` is a set of random numbers used to generate the results
+        ## * `octaves` allows you to combine multiple layers of perlin noise
+        ##   into a single result
+        ## * `persistence` is how much impact each successive octave has on
+        ##   the result
         perm: array[0..511, int]
+        octaves: int
+        persistence: float
 
     Point[U: float|int] = ## \
         ## A helper definition for a 3d point
@@ -44,13 +51,35 @@ proc buildPermutations( seed: uint32 ): array[0..511, int] =
     for i in 0..511:
         result[i] = base[i mod 256]
 
-proc newPerlin*( seed: uint32 ): Perlin =
+proc randomSeed*(): uint32 {.inline.} =
+    ## Returns a random seed that can be fed into a perlin constructor
+    uint32(random(high(int)))
+
+proc newPerlin*(
+    seed: uint32,
+    octaves: int = 1, persistence: float = 0.5
+): Perlin =
     ## Creates a new perlin noise instance with the given seed
-    Perlin( perm: buildPermutations(seed) )
+    ## * `octaves` allows you to combine multiple layers of perlin noise
+    ##   into a single result
+    ## * `persistence` is how much impact each successive octave has on
+    ##   the result
+    assert(octaves >= 1)
+    return Perlin(
+        perm: buildPermutations(seed),
+        octaves: octaves, persistence: persistence )
+
+proc newPerlin*( octaves: int, persistence: float ): Perlin =
+    ## Creates a new perlin noise instance with a random seed
+    ## * `octaves` allows you to combine multiple layers of perlin noise
+    ##   into a single result
+    ## * `persistence` is how much impact each successive octave has on
+    ##   the result
+    newPerlin( randomSeed(), octaves, persistence )
 
 proc newPerlin*(): Perlin =
-    ## Creates a new perlin noise instance with the given seed
-    newPerlin( uint32(random(high(int))) )
+    ## Creates a new perlin noise instance with a random seed
+    newPerlin( 1, 0.5 )
 
 template map( obj, apply: expr ): expr =
     ## Applies a callback to three numbers and presents them as a tuple
@@ -102,7 +131,7 @@ proc lerp( a, b, x: float ): float {.inline.} =
     ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
     a + x * (b - a)
 
-proc get ( self: Perlin, point: Point[float] ): float {.inline.} =
+proc noise ( self: Perlin, point: Point[float] ): float {.inline.} =
     ## Returns the noise at the given offset
 
     # Calculate the "unit cube" that the point asked will be located in
@@ -149,13 +178,32 @@ proc get ( self: Perlin, point: Point[float] ): float {.inline.} =
     # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
     return (output + 1) / 2
 
+proc octaves ( self: Perlin, x, y, z: int|float ): float {.inline.} =
+    ## Applies the configured octaves to the request
+    var total: float = 0
+    var frequency: float = 1
+    var amplitude: float = 1
+
+    # Used for normalizing result to 0.0 - 1.0
+    var maxValue: float = 0
+
+    for i in 0..self.octaves:
+        let noise = self.noise( (x * frequency, y * frequency, z * frequency) )
+        total = total + amplitude * noise
+
+        maxValue = maxValue + amplitude
+        amplitude = amplitude * self.persistence
+        frequency = frequency * 2
+
+    return total / maxValue
+
 proc get* ( self: Perlin, x, y, z: int|float ): float =
     ## Returns the noise at the given offset. This method bumps the values by
     ## just a bit to make sure there are decimal points. If you don't want
     ## that, use the 'pureGet' method instead
-    get( self, (float(x) * 0.1, float(y) * 0.1, float(z) * 0.1) )
+    octaves( self, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
 
 proc pureGet* ( self: Perlin, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input
-    get( self, (float(x), float(y), float(z)) )
+    octaves( self, float(x), float(y), float(z) )
 
