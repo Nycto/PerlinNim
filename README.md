@@ -16,9 +16,10 @@ A Small Example
 ```nimrod
 import perlin, math
 
+# Call randomize from the 'math' module to ensure the seed is unique
 randomize()
 
-var noise = newPerlin()
+let noise = newPerlin()
 
 # Output a 20x10 grid of noise
 for y in 0..10:
