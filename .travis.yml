@@ -9,4 +9,6 @@ install:
     - (cd nimble && nim c src/nimble)
     - export PATH=`pwd`/nimble/src:$PATH
     - nimble install --accept
-script: make
+script:
+    - make
+    - ./build/noise
