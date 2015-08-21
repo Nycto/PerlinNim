@@ -7,7 +7,7 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import sequtils, random/mersenne
+import sequtils, math, random/mersenne
 
 type
     Perlin* = object
@@ -47,6 +47,10 @@ proc buildPermutations( seed: uint32 ): array[0..511, int] =
 proc newPerlin*( seed: uint32 ): Perlin =
     ## Creates a new perlin noise instance with the given seed
     Perlin( perm: buildPermutations(seed) )
+
+proc newPerlin*(): Perlin =
+    ## Creates a new perlin noise instance with the given seed
+    newPerlin( uint32(random(high(int))) )
 
 template map( obj, apply: expr ): expr =
     ## Applies a callback to three numbers and presents them as a tuple

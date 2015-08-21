@@ -10,10 +10,12 @@ SHELL = /bin/bash -o pipefail
 # A list of all test names
 TESTS ?= $(notdir $(basename $(wildcard test/*_test.nim)))
 
+# Stand alone binaries
+BINS = $(addprefix build/,$(notdir $(basename $(wildcard bin/*.nim))))
 
 # Run all targets
 .PHONY: all
-all: build/readme_* test
+all: build/readme_* $(BINS) test
 
 # Run all tests
 .PHONY: test
@@ -46,6 +48,11 @@ endef
 
 # Define a target for each test
 $(foreach test,$(TESTS),$(eval $(call DEFINE_TEST,$(test))))
+
+
+# Compile anything in the bin folder
+build/%: bin/%.nim
+	$(call COMPILE,$<)
 
 
 # Pulls code snippets out of the readme file and puts them in their own files
