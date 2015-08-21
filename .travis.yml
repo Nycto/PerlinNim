@@ -11,4 +11,5 @@ install:
     - nimble install --accept
 script:
     - make
-    - ./build/noise
+    - ./build/noise2d
+    - ./build/noise1d
