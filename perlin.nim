@@ -198,12 +198,16 @@ proc octaves ( self: Perlin, x, y, z: int|float ): float {.inline.} =
     return total / maxValue
 
 proc get* ( self: Perlin, x, y, z: int|float ): float =
-    ## Returns the noise at the given offset. This method bumps the values by
-    ## just a bit to make sure there are decimal points. If you don't want
-    ## that, use the 'pureGet' method instead
+    ## Returns the noise at the given offset. The value returned will be
+    ## between 0 and 1.
+    ##
+    ## Note: This method tweaks the input values by just a bit to make sure
+    ## there are decimal points. If you don't want that, use the 'pureGet'
+    ## method instead
     octaves( self, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
 
 proc pureGet* ( self: Perlin, x, y, z: int|float ): float =
-    ## Returns the noise at the given offset without modifying the input
+    ## Returns the noise at the given offset without modifying the input. The
+    ## value returned will be between 0 and 1.
     octaves( self, float(x), float(y), float(z) )
 
