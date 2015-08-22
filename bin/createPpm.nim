@@ -104,13 +104,13 @@ let opts = getOptions()
 
 randomize()
 
-var noise = newPerlin( opts.seed, opts.octaves, opts.persistence )
+var noise = newNoise( opts.seed, opts.octaves, opts.persistence )
 
 var image = newPPM( opts.filename, opts.width, opts.height )
 
 for point in image.pixels:
     let shade = int(
-        255 * noise.get(
+        255 * noise.perlin(
             float(point.x) / opts.zoom,
             float(point.y) / opts.zoom,
             PI) )

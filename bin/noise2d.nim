@@ -8,11 +8,11 @@ const symbols = [ " ", "░", "▒", "▓", "█", "█" ]
 
 randomize()
 
-var noise = newPerlin()
+var noise = newNoise()
 
 for y in 0..40:
     for x in 0..79:
-        let index = int( floor(symbols.len * noise.get(x, y, 0)) )
+        let index = int( floor(symbols.len * noise.perlin(x, y, 0)) )
         stdout.write( symbols[index] )
     stdout.write("\n")
 

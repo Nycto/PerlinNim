@@ -7,47 +7,8 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import private/common, sequtils, math
-export randomSeed
-
-type
-    Perlin* = object
-        ## A perl noise instance
-        ## * `perm` is a set of random numbers used to generate the results
-        ## * `octaves` allows you to combine multiple layers of perlin noise
-        ##   into a single result
-        ## * `persistence` is how much impact each successive octave has on
-        ##   the result
-        perm: array[0..511, int]
-        octaves: int
-        persistence: float
-
-proc newPerlin*(
-    seed: uint32,
-    octaves: int = 1, persistence: float = 0.5
-): Perlin =
-    ## Creates a new perlin noise instance with the given seed
-    ## * `octaves` allows you to combine multiple layers of perlin noise
-    ##   into a single result
-    ## * `persistence` is how much impact each successive octave has on
-    ##   the result
-    assert(octaves >= 1)
-    return Perlin(
-        perm: buildPermutations(seed),
-        octaves: octaves, persistence: persistence )
-
-proc newPerlin*( octaves: int, persistence: float ): Perlin =
-    ## Creates a new perlin noise instance with a random seed
-    ## * `octaves` allows you to combine multiple layers of perlin noise
-    ##   into a single result
-    ## * `persistence` is how much impact each successive octave has on
-    ##   the result
-    newPerlin( randomSeed(), octaves, persistence )
-
-proc newPerlin*(): Perlin =
-    ## Creates a new perlin noise instance with a random seed
-    newPerlin( 1, 0.5 )
-
+import private/common
+export randomSeed, Noise, newNoise
 
 proc unitCubePos( num: float ): int {.inline.} =
     ## Returns the unit cube position for this given value. This chops off
@@ -58,9 +19,9 @@ proc decimal( num: float ): float {.inline.} =
     ## Returns just the decimal portion of the given number
     num - float(int(num))
 
-template hash( self: Perlin, x, y, z: expr ): expr =
+template hash( self: Noise, x, y, z: expr ): expr =
     ## Generates the hash coordinate given three expressions
-    self.perm[self.perm[self.perm[x] + y] + z]
+    self.perm(self.perm(self.perm(x) + y) + z)
 
 proc grad ( hash: int, x, y, z: float ): float =
     ## Calculate the dot product of a randomly selected gradient vector and the
@@ -95,7 +56,7 @@ proc lerp( a, b, x: float ): float {.inline.} =
     ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
     a + x * (b - a)
 
-proc noise ( self: Perlin, point: Point[float] ): float {.inline.} =
+proc noise ( self: Noise, point: Point[float] ): float {.inline.} =
     ## Returns the noise at the given offset
 
     # Calculate the "unit cube" that the point asked will be located in
@@ -142,17 +103,17 @@ proc noise ( self: Perlin, point: Point[float] ): float {.inline.} =
     # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
     return (output + 1) / 2
 
-proc get* ( self: Perlin, x, y, z: int|float ): float =
+proc perlin* ( self: Noise, x, y, z: int|float ): float =
     ## Returns the noise at the given offset. The value returned will be
     ## between 0 and 1.
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
-    ## there are decimal points. If you don't want that, use the 'pureGet'
+    ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
-    applyOctaves( self, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
+    applyOctaves( self, noise, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
 
-proc pureGet* ( self: Perlin, x, y, z: int|float ): float =
+proc purePerlin* ( self: Noise, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input. The
     ## value returned will be between 0 and 1.
-    applyOctaves( self, float(x), float(y), float(z) )
+    applyOctaves( self, noise, float(x), float(y), float(z) )
 
