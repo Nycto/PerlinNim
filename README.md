@@ -3,6 +3,8 @@ PerlinNim [![Build Status](https://travis-ci.org/Nycto/PerlinNim.svg?branch=mast
 
 A small perlin noise generation library for Nim.
 
+![](http://nycto.github.io/PerlinNim/example.png)
+
 API Docs
 --------
 
