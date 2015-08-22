@@ -7,7 +7,8 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import sequtils, math, random/mersenne
+import private/common, sequtils, math
+export randomSeed
 
 type
     Perlin* = object
@@ -20,40 +21,6 @@ type
         perm: array[0..511, int]
         octaves: int
         persistence: float
-
-    Point[U: float|int] = ## \
-        ## A helper definition for a 3d point
-        tuple[x, y, z: U]
-
-proc shuffle[E]( seed: uint32, values: var seq[E] ) =
-    ## Shuffles a sequence in place
-
-    var prng = initMersenneTwister(seed)
-
-    let max = uint32(values.high)
-
-    # Shuffle the array of numbers
-    for i in 0u32..(max - 1u32):
-        let index = int(i + (prng.randomUint32() mod (max - i)) + 1u32)
-        assert(index <= 255)
-        assert(int(i) < index)
-        swap values[int(i)], values[index]
-
-proc buildPermutations( seed: uint32 ): array[0..511, int] =
-    ## Returns a hash lookup table. It is all the numbers from 0 to 255
-    ## (inclusive) in a randomly sorted array, twice over
-
-    # Create and shuffle a random list of ints
-    var base = toSeq(0..255)
-    shuffle(seed, base)
-
-    # Copy into the result
-    for i in 0..511:
-        result[i] = base[i mod 256]
-
-proc randomSeed*(): uint32 {.inline.} =
-    ## Returns a random seed that can be fed into a perlin constructor
-    uint32(random(high(int)))
 
 proc newPerlin*(
     seed: uint32,
@@ -81,9 +48,6 @@ proc newPerlin*(): Perlin =
     ## Creates a new perlin noise instance with a random seed
     newPerlin( 1, 0.5 )
 
-template map( obj, apply: expr ): expr =
-    ## Applies a callback to three numbers and presents them as a tuple
-    ( x: apply(obj.x), y: apply(obj.y), z: apply(obj.z) )
 
 proc unitCubePos( num: float ): int {.inline.} =
     ## Returns the unit cube position for this given value. This chops off
@@ -178,25 +142,6 @@ proc noise ( self: Perlin, point: Point[float] ): float {.inline.} =
     # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
     return (output + 1) / 2
 
-proc octaves ( self: Perlin, x, y, z: int|float ): float {.inline.} =
-    ## Applies the configured octaves to the request
-    var total: float = 0
-    var frequency: float = 1
-    var amplitude: float = 1
-
-    # Used for normalizing result to 0.0 - 1.0
-    var maxValue: float = 0
-
-    for i in 0..self.octaves:
-        let noise = self.noise( (x * frequency, y * frequency, z * frequency) )
-        total = total + amplitude * noise
-
-        maxValue = maxValue + amplitude
-        amplitude = amplitude * self.persistence
-        frequency = frequency * 2
-
-    return total / maxValue
-
 proc get* ( self: Perlin, x, y, z: int|float ): float =
     ## Returns the noise at the given offset. The value returned will be
     ## between 0 and 1.
@@ -204,10 +149,10 @@ proc get* ( self: Perlin, x, y, z: int|float ): float =
     ## Note: This method tweaks the input values by just a bit to make sure
     ## there are decimal points. If you don't want that, use the 'pureGet'
     ## method instead
-    octaves( self, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
+    applyOctaves( self, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
 
 proc pureGet* ( self: Perlin, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input. The
     ## value returned will be between 0 and 1.
-    octaves( self, float(x), float(y), float(z) )
+    applyOctaves( self, float(x), float(y), float(z) )
 
