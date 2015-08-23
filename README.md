@@ -13,27 +13,8 @@ API Docs
 * Perlin docs: http://nycto.github.io/PerlinNim/perlin.html
 * General docs: http://nycto.github.io/PerlinNim/noise.html
 
-Simplex Noise Example
----------------------
-
-```nimrod
-import simplex, math
-
-# Call randomize from the 'math' module to ensure the seed is unique
-randomize()
-
-let noise = newNoise()
-
-# Output a 20x10 grid of noise
-for y in 0..10:
-    for x in 0..20:
-        let value = noise.simplex(x, y, 0)
-        stdout.write( int(9 * value) )
-    stdout.write("\n")
-```
-
-Perlin Noise Example
---------------------
+A Quick Example
+---------------
 
 ```nimrod
 import perlin, math
@@ -46,7 +27,10 @@ let noise = newNoise()
 # Output a 20x10 grid of noise
 for y in 0..10:
     for x in 0..20:
-        let value = noise.perlin(x, y, 0)
+        let value = noise.simplex(x, y, 0)
+        # If you wanted to use Perlin noise, you would swap that line out with:
+        # let value = noise.perlin(x, y, 0)
+
         stdout.write( int(9 * value) )
     stdout.write("\n")
 ```

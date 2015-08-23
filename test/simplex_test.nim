@@ -1,4 +1,4 @@
-import unittest, simplex, math
+import unittest, perlin, math
 
 randomize()
 

@@ -9,9 +9,6 @@
 ## * http://webstaff.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
 ##
 
-import private/common, math
-export randomSeed, Noise, newNoise
-
 const grad3: array[12, Point[float]] = [
     (x:  1.0, y:  1.0, z:  0.0),
     (x: -1.0, y:  1.0, z:  0.0),
@@ -29,7 +26,7 @@ const grad3: array[12, Point[float]] = [
 
 proc permMod12( self: Noise, index: int ): int {.inline.} =
     ## Provides access to to the perm module, but modulo 12
-    self.perm(index) mod 12
+    self.perm[index] mod 12
 
 # Skewing and unskewing factors for 2, 3, and 4 dimensions
 const F3: float = 1.0 / 3.0
@@ -77,8 +74,8 @@ proc getGradientIndex(
 ): int {.inline.} =
     ## Work out the hashed gradient index of the a simplex corner
     self.permMod12(hash.x + ijk.i +
-        self.perm(hash.y + ijk.j +
-            self.perm(hash.z + ijk.k)))
+        self.perm[hash.y + ijk.j +
+            self.perm[hash.z + ijk.k]])
 
 proc contribution( point: Point[float], gIndex: int ): float {.inline.} =
     ## Noise contributions from a corners
@@ -88,7 +85,7 @@ proc contribution( point: Point[float], gIndex: int ): float {.inline.} =
     else:
         return t * t * t * t * dot(grad3[gIndex], point)
 
-proc noise ( self: Noise, point: Point[float] ): float {.inline.} =
+proc simplexNoise ( self: Noise, point: Point[float] ): float {.inline.} =
     ## 3D simplex noise
 
     # Skew the input space to determine which simplex cell we're in
@@ -143,18 +140,4 @@ proc noise ( self: Noise, point: Point[float] ): float {.inline.} =
     # Restrict the range to 0 to 1 for convenience
     result = (result + 1) / 2
 
-
-proc simplex* ( self: Noise, x, y, z: int|float ): float =
-    ## Returns the noise at the given offset. The value returned will be
-    ## between 0 and 1.
-    ##
-    ## Note: This method tweaks the input values by just a bit to make sure
-    ## there are decimal points. If you don't want that, use the 'purePerlin'
-    ## method instead
-    applyOctaves( self, noise, float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
-
-proc pureSimplex* ( self: Noise, x, y, z: int|float ): float =
-    ## Returns the noise at the given offset without modifying the input. The
-    ## value returned will be between 0 and 1.
-    applyOctaves( self, noise, float(x), float(y), float(z) )
 

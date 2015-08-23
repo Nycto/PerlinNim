@@ -2,7 +2,7 @@
 ## Draws an 80 by 80 column of noise to the console
 ##
 
-import noise, math, strutils, private/cli
+import perlin, math, strutils, private/cli
 
 # The symbols to use for representing noise scale
 const symbols = [ " ", "░", "▒", "▓", "█", "█" ]
@@ -11,7 +11,7 @@ const symbols = [ " ", "░", "▒", "▓", "█", "█" ]
 randomize()
 
 # The various config options to be filled from the CLI
-var noiseType = perlin
+var noiseType = NoiseType.perlin
 var columns = 80
 var rows = 40
 var octaves = 1
@@ -25,8 +25,8 @@ parseOptions(opts):
     opts.parse(octaves, ["octaves", "o"], parseInt(it), it > 0)
     opts.parse(persistence, ["persistence", "p"], parseFloat(it), it > 0)
     opts.parse(seed, ["seed", "s"], uint32(parseInt(it)))
-    opts.parseFlag(noiseType, ["perlin"], perlin)
-    opts.parseFlag(noiseType, ["simplex"], simplex)
+    opts.parseFlag(noiseType, ["perlin"], NoiseType.perlin)
+    opts.parseFlag(noiseType, ["simplex"], NoiseType.simplex)
 
 let noiseConf = newNoise(seed, octaves, persistence)
 

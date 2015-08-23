@@ -2,14 +2,14 @@
 ## Creates a PPM image file of perlin noise
 ##
 
-import noise, math, parseopt2, os, strutils, private/cli
+import perlin, math, parseopt2, os, strutils, private/cli
 
 # Seed the random number generator in Nim
 randomize()
 
 # The various config options to be filled from the CLI
 var filename: string = nil
-var noiseType = perlin
+var noiseType = NoiseType.perlin
 var width = 600
 var height = 600
 var octaves = 1
@@ -25,8 +25,8 @@ parseOptions(opts):
     opts.parse(persistence, ["persistence", "p"], parseFloat(it), it > 0)
     opts.parse(seed, ["seed", "s"], uint32(parseInt(it)))
     opts.parse(zoom, ["zoom", "z"], parseFloat(it), it > 0)
-    opts.parseFlag(noiseType, ["perlin"], perlin)
-    opts.parseFlag(noiseType, ["simplex"], simplex)
+    opts.parseFlag(noiseType, ["perlin"], NoiseType.perlin)
+    opts.parseFlag(noiseType, ["simplex"], NoiseType.simplex)
 
     opts.parseArg(filename)
     if not filename.strip.toLower.endsWith(".ppm"):
