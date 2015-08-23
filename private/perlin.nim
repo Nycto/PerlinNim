@@ -1,10 +1,5 @@
 ##
-## A Perlin Noise Generation Library
-##
-## Take a look at the following resources:
-## * http://mrl.nyu.edu/~perlin/noise/
-## * http://flafla2.github.io/2014/08/09/perlinnoise.html
-## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
+## Perlin noise generation
 ##
 
 proc unitCubePos( num: float ): int {.inline.} =

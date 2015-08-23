@@ -1,5 +1,24 @@
 ##
-## A simple interface for providing various types of noise
+## A Noise Generation Library with support for both Perlin noise and Simplex
+## noise.
+##
+## Simplex Noise
+## -------------
+##
+## Take a look here:
+## * http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf
+## * http://stackoverflow.com/questions/18279456/any-simplex-noise-tutorials-or-resources
+##
+## Based on the implementation found here:
+## * http://webstaff.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
+##
+## Perlin Noise
+## ------------
+##
+## Take a look at the following resources:
+## * http://mrl.nyu.edu/~perlin/noise/
+## * http://flafla2.github.io/2014/08/09/perlinnoise.html
+## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
 import math, private/common
@@ -48,7 +67,7 @@ proc newNoise*( octaves: int, persistence: float ): Noise =
 
 proc newNoise*(): Noise =
     ## Creates a new noise instance with a random seed
-    newNoise( 1, 0.5 )
+    newNoise( 1, 1.0 )
 
 
 include private/perlin, private/simplex

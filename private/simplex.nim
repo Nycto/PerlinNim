@@ -1,12 +1,5 @@
 ##
-## Simplex noise generation in 3d
-##
-## Take a look here:
-## * http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf
-## * http://stackoverflow.com/questions/18279456/any-simplex-noise-tutorials-or-resources
-##
-## Based on the implementation found here:
-## * http://webstaff.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
+## 3D Simplex noise generation
 ##
 
 const grad3: array[12, Point[float]] = [
