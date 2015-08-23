@@ -14,8 +14,7 @@ suite "Simplex Noise should":
             for y in 0..50:
                 for z in 0..50:
                     let val = noise.simplex(x, y, z)
-                    require( val >= 0 )
-                    require( val <= 1 )
+                    require( val >= 0 and val < 1 )
 
     let seedOne = randomSeed()
     test "Produce values from 0 to 1 for seed " & $seedOne:
@@ -24,7 +23,7 @@ suite "Simplex Noise should":
             for y in 0..50:
                 for z in 0..50:
                     let val = noise.simplex(x, y, z)
-                    require( val >= 0 and val <= 1 )
+                    require( val >= 0 and val < 1 )
 
     let seedTwo = randomSeed()
     test "Produce values from 0 to 1 with octaves for seed " & $seedTwo:
@@ -33,5 +32,5 @@ suite "Simplex Noise should":
             for y in 0..50:
                 for z in 0..50:
                     let val = noise.simplex(x, y, z)
-                    require( val >= 0 and val <= 1 )
+                    require( val >= 0 and val < 1 )
 
