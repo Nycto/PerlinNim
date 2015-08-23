@@ -84,9 +84,24 @@ proc perm*( self: Noise, index: int ): int {.inline.} =
     self.perm[index]
 
 
-template map*( point, apply: expr ): expr =
+template map*( point: tuple, apply: expr ): expr =
     ## Applies a callback to all the values in a point
     ( x: apply(point.x), y: apply(point.y), z: apply(point.z) )
+
+template mapIt*( point: tuple, kind, apply: expr ): expr =
+    ## Applies a callback to all the values in a point
+    var output: array[3, kind]
+    block applyItBlock:
+        let it {.inject.} = point.x
+        output[0] = apply
+    block applyItBlock:
+        let it {.inject.} = point.y
+        output[1] = apply
+    block applyItBlock:
+        let it {.inject.} = point.z
+        output[2] = apply
+    ( x: output[0], y: output[1], z: output[2] )
+
 
 template applyOctaves*( self: Noise, callback: expr, x, y, z: float ): float =
     ## Applies the configured octaves to the request
