@@ -69,9 +69,9 @@ proc newNoise*(): Noise =
     ## Creates a new noise instance with a random seed
     newNoise( 1, 1.0 )
 
-proc permMod12( self: Noise, index: int ): int {.inline.} =
-    ## Provides access to to the perm module, but modulo 12
-    self.perm[index] mod 12
+template gradientIndex(self: Noise, point: Point3d[int], i, j, k: expr): int =
+    ## Work out the hashed gradient index of the a simplex corner
+    self.perm[point.x + i + self.perm[point.y + j + self.perm[point.z + k]]]
 
 
 include private/perlin, private/simplex

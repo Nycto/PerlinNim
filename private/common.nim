@@ -53,24 +53,25 @@ template mapIt*( point: tuple, kind, apply: expr ): expr =
         output[2] = apply
     ( x: output[0], y: output[1], z: output[2] )
 
-
-# Gradient lookup table
-const grad3*: array[12, Point3d[float]] = [
-    (x:  1.0, y:  1.0, z:  0.0),
-    (x: -1.0, y:  1.0, z:  0.0),
-    (x:  1.0, y: -1.0, z:  0.0),
-    (x: -1.0, y: -1.0, z:  0.0),
-    (x:  1.0, y:  0.0, z:  1.0),
-    (x: -1.0, y:  0.0, z:  1.0),
-    (x:  1.0, y:  0.0, z: -1.0),
-    (x: -1.0, y:  0.0, z: -1.0),
-    (x:  0.0, y:  1.0, z:  1.0),
-    (x:  0.0, y: -1.0, z:  1.0),
-    (x:  0.0, y:  1.0, z: -1.0),
-    (x:  0.0, y: -1.0, z: -1.0)
-]
-
-proc dot*(g: Point3d[float], p: Point3d[float] ): float {.inline.} =
-    return g.x * p.x + g.y * p.y + g.z * p.z
-
+proc grad*( hash: int, x, y, z: float ): float =
+    ## Calculate the dot product of a randomly selected gradient vector and the
+    ## 8 location vectors
+    case (hash and 0xF)
+    of 0x0: return  x + y
+    of 0x1: return -x + y
+    of 0x2: return  x - y
+    of 0x3: return -x - y
+    of 0x4: return  x + z
+    of 0x5: return -x + z
+    of 0x6: return  x - z
+    of 0x7: return -x - z
+    of 0x8: return  y + z
+    of 0x9: return -y + z
+    of 0xA: return  y - z
+    of 0xB: return -y - z
+    of 0xC: return  y + x
+    of 0xD: return -y + z
+    of 0xE: return  y - x
+    of 0xF: return -y - z
+    else: raise newException(AssertionError, "Should not happen")
 

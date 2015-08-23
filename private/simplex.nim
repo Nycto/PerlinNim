@@ -39,21 +39,13 @@ proc getCornerOffset(
       y: point.y - float(ijk.j) + multiplier * G3,
       z: point.z - float(ijk.k) + multiplier * G3 )
 
-proc getGradientIndex(
-    self: Noise, hash: Point3d[int], ijk: tuple[i, j, k: int]
-): int {.inline.} =
-    ## Work out the hashed gradient index of the a simplex corner
-    self.permMod12(hash.x + ijk.i +
-        self.perm[hash.y + ijk.j +
-            self.perm[hash.z + ijk.k]])
-
 proc contribution( point: Point3d[float], gIndex: int ): float {.inline.} =
     ## Noise contributions from a corners
     let t = 0.6 - point.x * point.x - point.y * point.y - point.z * point.z
     if t < 0:
         return 0.0
     else:
-        return t * t * t * t * dot(grad3[gIndex], point)
+        return t * t * t * t * grad(gIndex, point.x, point.y, point.z)
 
 proc simplexNoise ( self: Noise, point: Point3d[float] ): float {.inline.} =
     ## 3D simplex noise
@@ -91,13 +83,13 @@ proc simplexNoise ( self: Noise, point: Point3d[float] ): float {.inline.} =
     # Offsets for last corner in (x,y,z) coords
     let pos3 = getCornerOffset(origin, (1, 1, 1), 3.0)
 
-    # Work out the hashed gradient indices of the four simplex corners
-    let hash = floored.mapIt(int, it and 255)
+    let unit = floored.mapIt(int, it and 255)
 
-    let gIndex0 = self.getGradientIndex(hash, (0, 0, 0))
-    let gIndex1 = self.getGradientIndex(hash, ijk1)
-    let gIndex2 = self.getGradientIndex(hash, ijk2)
-    let gIndex3 = self.getGradientIndex(hash, (1, 1, 1))
+    # Work out the hashed gradient indices of the four simplex corners
+    let gIndex0 = self.gradientIndex(unit, 0, 0, 0)
+    let gIndex1 = self.gradientIndex(unit, ijk1.i, ijk1.j, ijk1.k)
+    let gIndex2 = self.gradientIndex(unit, ijk2.i, ijk2.j, ijk2.k)
+    let gIndex3 = self.gradientIndex(unit, 1, 1, 1)
 
     # Add contributions from each corner to get the final noise value.
     # The result is scaled to stay just inside [-1,1]
