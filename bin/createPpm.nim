@@ -2,69 +2,35 @@
 ## Creates a PPM image file of perlin noise
 ##
 
-import perlin, math, parseopt2, os, strutils
+import noise, math, parseopt2, os, strutils, private/cli
 
+# Seed the random number generator in Nim
+randomize()
 
-type Options = object
-    ## Command line options
-    width, height: int
-    filename: string
-    seed: uint32
-    octaves: int
-    persistence: float
-    zoom: float
+# The various config options to be filled from the CLI
+var filename: string = nil
+var noiseType = perlin
+var width = 600
+var height = 600
+var octaves = 1
+var persistence = 1.0
+var seed = randomSeed()
+var zoom = 1.0
 
-template failIf ( condition: expr, msg: string ) =
-    ## Quits with a failure code and a message
-    if condition:
-        stderr.write("Error: ", msg, "\n")
-        quit(1)
+# Parse the command line options
+parseOptions(opts):
+    opts.parse(width, ["width", "w"], parseInt(it), it > 0)
+    opts.parse(height, ["height", "h"], parseInt(it), it > 0)
+    opts.parse(octaves, ["octaves", "o"], parseInt(it), it > 0)
+    opts.parse(persistence, ["persistence", "p"], parseFloat(it), it > 0)
+    opts.parse(seed, ["seed", "s"], uint32(parseInt(it)))
+    opts.parse(zoom, ["zoom", "z"], parseFloat(it), it > 0)
+    opts.parseFlag(noiseType, ["perlin"], perlin)
+    opts.parseFlag(noiseType, ["simplex"], simplex)
 
-template parse( value, parser: expr, name: string ): expr =
-    let result = parser(val)
-    failIf(result <= 0, name & " must be positive")
-    result
-
-proc getOptions(): Options =
-    ## Returns parsed command line options
-    result = Options(
-        width: 600, height: 600, filename: nil,
-        seed: randomSeed(), octaves: 1, persistence: 1.0, zoom: 1
-    )
-
-    for kind, key, val in getopt():
-        case kind
-        of cmdArgument:
-            failIf(result.filename != nil, "Filename already provided")
-
-            if key.strip.toLower.endsWith(".ppm"):
-                result.filename = key.strip
-            else:
-                result.filename = key.strip & ".ppm"
-
-        of cmdLongOption, cmdShortOption:
-            failIf(val == "", "Empty option! Make sure you use an equals sign.")
-            case key
-            of "width", "w":
-                result.width = val.parse(parseInt, "Width")
-            of "height", "h":
-                result.height = val.parse(parseInt, "Height")
-            of "seed", "s":
-                result.seed = uint32(parseInt(val))
-            of "octaves", "o":
-                result.octaves = val.parse(parseInt, "Octaves")
-            of "persistence", "p":
-                result.persistence = val.parse(parseFloat, "Persistence")
-            of "zoom", "z":
-                result.zoom = val.parse(parseFloat, "Zoom")
-            else:
-                failIf(true, "Unrecognized option: " & key)
-
-        of cmdEnd:
-            assert(false)
-
-    failIf(result.filename == nil, "You must provide a file name")
-
+    opts.parseArg(filename)
+    if not filename.strip.toLower.endsWith(".ppm"):
+        filename = filename.strip & ".ppm"
 
 
 type PpmImage = object
@@ -94,25 +60,23 @@ proc draw( image: var PpmImage, r, g, b: int ) =
     image.file.write( r, " ", g, " ", b, "\n" )
 
 iterator pixels( image: PpmImage ): tuple[x, y: int] =
+    ## Presents each pixel in this image in the order it appears in the file
     for y in 0..image.height - 1:
         for x in 0..image.width - 1:
             yield (x: x, y: y)
 
 
 
-let opts = getOptions()
+var noiseConf = newNoise( seed, octaves, persistence )
 
-randomize()
-
-var noise = newNoise( opts.seed, opts.octaves, opts.persistence )
-
-var image = newPPM( opts.filename, opts.width, opts.height )
+var image = newPPM( filename, width, height )
 
 for point in image.pixels:
     let shade = int(
-        255 * noise.perlin(
-            float(point.x) / opts.zoom,
-            float(point.y) / opts.zoom,
+        255 * noiseConf.get(
+            noiseType,
+            float(point.x) / zoom,
+            float(point.y) / zoom,
             PI) )
     image.draw( shade, shade, shade )
 

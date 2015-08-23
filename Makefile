@@ -52,7 +52,7 @@ $(foreach test,$(TESTS),$(eval $(call DEFINE_TEST,$(test))))
 
 
 # Compile anything in the bin folder
-build/%: bin/%.nim
+build/%: bin/%.nim bin/private/*.nim
 	$(call COMPILE,$<)
 
 
