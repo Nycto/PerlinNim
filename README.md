@@ -9,9 +9,7 @@ Simplex noise.
 API Docs
 --------
 
-* Simplex docs: http://nycto.github.io/PerlinNim/simplex.html
-* Perlin docs: http://nycto.github.io/PerlinNim/perlin.html
-* General docs: http://nycto.github.io/PerlinNim/noise.html
+http://nycto.github.io/PerlinNim/perlin.html
 
 A Quick Example
 ---------------
