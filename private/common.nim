@@ -5,7 +5,7 @@
 import sequtils, math, random/mersenne
 
 type
-    Point*[U: float|int] = ## \
+    Point3D*[U: float|int] = ## \
         ## A helper definition for a 3d point
         tuple[x, y, z: U]
 
@@ -52,4 +52,25 @@ template mapIt*( point: tuple, kind, apply: expr ): expr =
         let it {.inject.} = point.z
         output[2] = apply
     ( x: output[0], y: output[1], z: output[2] )
+
+
+# Gradient lookup table
+const grad3*: array[12, Point3d[float]] = [
+    (x:  1.0, y:  1.0, z:  0.0),
+    (x: -1.0, y:  1.0, z:  0.0),
+    (x:  1.0, y: -1.0, z:  0.0),
+    (x: -1.0, y: -1.0, z:  0.0),
+    (x:  1.0, y:  0.0, z:  1.0),
+    (x: -1.0, y:  0.0, z:  1.0),
+    (x:  1.0, y:  0.0, z: -1.0),
+    (x: -1.0, y:  0.0, z: -1.0),
+    (x:  0.0, y:  1.0, z:  1.0),
+    (x:  0.0, y: -1.0, z:  1.0),
+    (x:  0.0, y:  1.0, z: -1.0),
+    (x:  0.0, y: -1.0, z: -1.0)
+]
+
+proc dot*(g: Point3d[float], p: Point3d[float] ): float {.inline.} =
+    return g.x * p.x + g.y * p.y + g.z * p.z
+
 

@@ -48,17 +48,17 @@ proc lerp( a, b, x: float ): float {.inline.} =
     ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
     a + x * (b - a)
 
-proc perlinNoise ( self: Noise, point: Point[float] ): float {.inline.} =
+proc perlinNoise ( self: Noise, point: Point3d[float] ): float {.inline.} =
     ## Returns the noise at the given offset
 
     # Calculate the "unit cube" that the point asked will be located in
-    let unit: Point[int] = point.map(unitCubePos)
+    let unit = point.map(unitCubePos)
 
     # Calculate the location within the cube
-    let pos: Point[float] = point.map(decimal)
+    let pos = point.map(decimal)
 
     # Compute the fade curves
-    let faded: Point[float] = pos.map(fade)
+    let faded = pos.map(fade)
 
     # The hash coordinates of the 8 corners
     let aaa = hash(self, unit.x,     unit.y,     unit.z    )

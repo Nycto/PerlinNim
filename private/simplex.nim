@@ -2,35 +2,12 @@
 ## 3D Simplex noise generation
 ##
 
-const grad3: array[12, Point[float]] = [
-    (x:  1.0, y:  1.0, z:  0.0),
-    (x: -1.0, y:  1.0, z:  0.0),
-    (x:  1.0, y: -1.0, z:  0.0),
-    (x: -1.0, y: -1.0, z:  0.0),
-    (x:  1.0, y:  0.0, z:  1.0),
-    (x: -1.0, y:  0.0, z:  1.0),
-    (x:  1.0, y:  0.0, z: -1.0),
-    (x: -1.0, y:  0.0, z: -1.0),
-    (x:  0.0, y:  1.0, z:  1.0),
-    (x:  0.0, y: -1.0, z:  1.0),
-    (x:  0.0, y:  1.0, z: -1.0),
-    (x:  0.0, y: -1.0, z: -1.0)
-]
-
-proc permMod12( self: Noise, index: int ): int {.inline.} =
-    ## Provides access to to the perm module, but modulo 12
-    self.perm[index] mod 12
-
-# Skewing and unskewing factors for 2, 3, and 4 dimensions
+# Skewing and unskewing factors
 const F3: float = 1.0 / 3.0
-
 const G3: float = 1.0 / 6.0
 
-proc dot(g: Point[float], p: Point[float] ): float {.inline.} =
-    return g.x * p.x + g.y * p.y + g.z * p.z
-
 proc getSimplexCorners(
-    point: Point[float]
+    point: Point3d[float]
 ): tuple[second, third: tuple[i, j, k: int]] {.inline.} =
     ## Determine which simplex we are in and return the points for the corner
     if point.x >= point.y:
@@ -55,22 +32,22 @@ proc getSimplexCorners(
             return (second: (0, 1, 0), third: (1, 1, 0))
 
 proc getCornerOffset(
-    point: Point[float], ijk: tuple[i, j, k: int], multiplier: float
-): Point[float] {.inline.} =
+    point: Point3d[float], ijk: tuple[i, j, k: int], multiplier: float
+): Point3d[float] {.inline.} =
     ## Calculates the offset for various corners
     ( x: point.x - float(ijk.i) + multiplier * G3,
       y: point.y - float(ijk.j) + multiplier * G3,
       z: point.z - float(ijk.k) + multiplier * G3 )
 
 proc getGradientIndex(
-    self: Noise, hash: Point[int], ijk: tuple[i, j, k: int]
+    self: Noise, hash: Point3d[int], ijk: tuple[i, j, k: int]
 ): int {.inline.} =
     ## Work out the hashed gradient index of the a simplex corner
     self.permMod12(hash.x + ijk.i +
         self.perm[hash.y + ijk.j +
             self.perm[hash.z + ijk.k]])
 
-proc contribution( point: Point[float], gIndex: int ): float {.inline.} =
+proc contribution( point: Point3d[float], gIndex: int ): float {.inline.} =
     ## Noise contributions from a corners
     let t = 0.6 - point.x * point.x - point.y * point.y - point.z * point.z
     if t < 0:
@@ -78,13 +55,13 @@ proc contribution( point: Point[float], gIndex: int ): float {.inline.} =
     else:
         return t * t * t * t * dot(grad3[gIndex], point)
 
-proc simplexNoise ( self: Noise, point: Point[float] ): float {.inline.} =
+proc simplexNoise ( self: Noise, point: Point3d[float] ): float {.inline.} =
     ## 3D simplex noise
 
     # Skew the input space to determine which simplex cell we're in
     let skew = (point.x + point.y + point.z) * F3
 
-    let floored: Point[int] = point.mapIt(int, int(floor(it + skew)) )
+    let floored: Point3d[int] = point.mapIt(int, int(floor(it + skew)) )
 
     let t = float(floored.x + floored.y + floored.z) * G3;
 

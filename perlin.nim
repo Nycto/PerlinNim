@@ -69,6 +69,10 @@ proc newNoise*(): Noise =
     ## Creates a new noise instance with a random seed
     newNoise( 1, 1.0 )
 
+proc permMod12( self: Noise, index: int ): int {.inline.} =
+    ## Provides access to to the perm module, but modulo 12
+    self.perm[index] mod 12
+
 
 include private/perlin, private/simplex
 
