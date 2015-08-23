@@ -15,6 +15,7 @@ suite "Perlin Noise should":
                 for z in 0..50:
                     let val = noise.perlin(x, y, z)
                     require( val >= 0 and val < 1 )
+                    require( val == noise.perlin(x, y, z) )
 
     let seedOne = randomSeed()
     test "Produce values from 0 to 1 for seed " & $seedOne:
@@ -24,6 +25,7 @@ suite "Perlin Noise should":
                 for z in 0..50:
                     let val = noise.perlin(x, y, z)
                     require( val >= 0 and val < 1 )
+                    require( val == noise.perlin(x, y, z) )
 
     let seedTwo = randomSeed()
     test "Produce values from 0 to 1 with octaves for seed " & $seedTwo:
@@ -33,4 +35,5 @@ suite "Perlin Noise should":
                 for z in 0..50:
                     let val = noise.perlin(x, y, z)
                     require( val >= 0 and val < 1 )
+                    require( val == noise.perlin(x, y, z) )
 
