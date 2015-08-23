@@ -14,7 +14,7 @@
 <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600' rel='stylesheet' type='text/css'>
 
 <!-- CSS -->
-<title>Module perlin</title>
+<title>Module noise</title>
 <style type="text/css" >
 /*
 Stylesheet for use with Docutils/rst2html.
@@ -1149,7 +1149,7 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 <body>
 <div class="document" id="documentId">
   <div class="container">
-    <h1 class="title">Module perlin</h1>
+    <h1 class="title">Module noise</h1>
     <div class="row">
   <div class="three columns">
   <ul class="simple simple-toc" id="toc-list">
@@ -1160,12 +1160,21 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
   </ul>
 </li>
 <li>
+  <a class="reference reference-toplevel" href="#7" id="57">Types</a>
+  <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#NoiseType"
+    title="NoiseType* = enum
+  perlin, simplex"><wbr />Noise<wbr />Type</a></li>
+
+  </ul>
+</li>
+<li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#perlin,Noise,,,"
-    title="perlin*(self: Noise; x, y, z: int | float): float"><wbr />perlin</a></li>
-  <li><a class="reference" href="#purePerlin,Noise,,,"
-    title="purePerlin*(self: Noise; x, y, z: int | float): float"><wbr />pure<wbr />Perlin</a></li>
+      <li><a class="reference" href="#get,Noise,NoiseType,,,"
+    title="get*(self: Noise; typ: NoiseType; x, y, z: int | float): float"><wbr />get</a></li>
+  <li><a class="reference" href="#pureGet,Noise,NoiseType,,,"
+    title="pureGet*(self: Noise; typ: NoiseType; x, y, z: int | float): float"><wbr />pure<wbr />Get</a></li>
 
   </ul>
 </li>
@@ -1174,30 +1183,36 @@ dt pre > span.Operator ~ span.Identifier, dt pre > span.Operator ~ span.Operator
 
   </div>
   <div class="nine columns" id="content">
-  <p class="module-desc"><blockquote><p><p>A Perlin Noise Generation Library</p>
-<p>Take a look at the following resources:</p>
-<ul class="simple"><li><a class="reference external" href="http://mrl.nyu.edu/~perlin/noise">http://mrl.nyu.edu/~perlin/noise</a>/</li>
-<li><a class="reference external" href="http://flafla2.github.io/2014/08/09/perlinnoise.html">http://flafla2.github.io/2014/08/09/perlinnoise.html</a></li>
-<li><a class="reference external" href="http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html">http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html</a></li>
-</ul>
-</p></blockquote>
+  <p class="module-desc"><blockquote><p>A simple interface for providing various types of noise</p></blockquote>
 </p>
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="private/common.html">private/common</a>
+<a class="reference external" href="private/common.html">private/common</a>, <a class="reference external" href="simplex.html">simplex</a>, <a class="reference external" href="perlin.html">perlin</a>
+</dl></div>
+<div class="section" id="7">
+<h1><a class="toc-backref" href="#7">Types</a></h1>
+<dl class="item">
+<dt id="NoiseType"><a name="NoiseType"></a><pre><span class="Identifier">NoiseType</span><span class="Operator">*</span> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">perlin</span><span class="Other">,</span> <span class="Identifier">simplex</span></pre></dt>
+<dd>
+
+The types of noise available
+
+</dd>
+
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<dt id="perlin"><a name="perlin,Noise,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">perlin</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+<dt id="get"><a name="get,Noise,NoiseType,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">get</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">NoiseType</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
 <p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
-<dt id="purePerlin"><a name="purePerlin,Noise,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">purePerlin</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
+<dt id="pureGet"><a name="pureGet,Noise,NoiseType,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pureGet</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">NoiseType</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
 Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
 
