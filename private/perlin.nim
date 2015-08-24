@@ -22,15 +22,6 @@ proc lerp( a, b, x: float ): float {.inline.} =
     ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
     a + x * (b - a)
 
-template hash(
-    self: Noise,
-    unit: Point3D[int], ux, uy, uz: expr,
-    pos: Point3D[float], gx, gy, gz: expr
-): expr =
-    ## Generates the hash coordinate given three expressions
-    let gIndex = self.gradientIndex(unit, ux, uy, uz)
-    grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
-
 proc perlinNoise ( self: Noise, point: Point3d[float] ): float {.inline.} =
     ## Returns the noise at the given offset
 

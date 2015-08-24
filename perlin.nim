@@ -69,9 +69,15 @@ proc newNoise*(): Noise =
     ## Creates a new noise instance with a random seed
     newNoise( 1, 1.0 )
 
-template gradientIndex(self: Noise, point: Point3d[int], i, j, k: expr): int =
-    ## Work out the hashed gradient index of the a simplex corner
-    self.perm[point.x + i + self.perm[point.y + j + self.perm[point.z + k]]]
+template hash(
+    self: Noise,
+    unit: Point3D[int], ux, uy, uz: expr,
+    pos: Point3D[float], gx, gy, gz: expr
+): expr =
+    ## Generates the hash coordinate given three expressions
+    let gIndex =
+        self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
+    grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
 
 
 include private/perlin, private/simplex
