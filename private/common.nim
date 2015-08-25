@@ -9,6 +9,10 @@ type
         ## A helper definition for a 3d point
         tuple[x, y, z: U]
 
+    Point2D*[U: float|int] = ## \
+        ## A helper definition for a 3d point
+        tuple[x, y: U]
+
 proc shuffle[E]( seed: uint32, values: var seq[E] ) =
     ## Shuffles a sequence in place
 
@@ -37,9 +41,12 @@ proc buildPermutations*( seed: uint32 ): array[0..511, int] =
 
 template map*( point: tuple, apply: expr ): expr =
     ## Applies a callback to all the values in a point
-    ( x: apply(point.x), y: apply(point.y), z: apply(point.z) )
+    when compiles(point.z):
+        ( x: apply(point.x), y: apply(point.y), z: apply(point.z) )
+    else:
+        ( x: apply(point.x), y: apply(point.y) )
 
-template mapIt*( point: tuple, kind, apply: expr ): expr =
+template mapIt*( point: tuple, kind: typedesc, apply: expr ): expr =
     ## Applies a callback to all the values in a point
     var output: array[3, kind]
     block applyItBlock:
@@ -48,12 +55,15 @@ template mapIt*( point: tuple, kind, apply: expr ): expr =
     block applyItBlock:
         let it {.inject.} = point.y
         output[1] = apply
-    block applyItBlock:
-        let it {.inject.} = point.z
-        output[2] = apply
-    ( x: output[0], y: output[1], z: output[2] )
+    when compiles(point.z):
+        block applyItBlock:
+            let it {.inject.} = point.z
+            output[2] = apply
+        ( x: output[0], y: output[1], z: output[2] )
+    else:
+        ( x: output[0], y: output[1] )
 
-proc grad*( hash: int, x, y, z: float ): float =
+proc grad*( hash: int, x, y, z: float ): float {.inline.} =
     ## Calculate the dot product of a randomly selected gradient vector and the
     ## 8 location vectors
     case (hash and 0xF)

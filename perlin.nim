@@ -79,11 +79,20 @@ template hash(
         self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
     grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
 
+template hash(
+    self: Noise,
+    unit: Point2D[int], ux, uy: expr,
+    pos: Point2D[float], gx, gy: expr
+): expr =
+    ## Generates the hash coordinate given three expressions
+    let gIndex =
+        self.perm[unit.x + ux + self.perm[unit.y + uy]]
+    grad(gIndex, pos.x + gx, pos.y + gy, 0)
 
 include private/perlin, private/simplex
 
 
-template applyOctaves( self: Noise, callback: expr, x, y, z: float ): float =
+template applyOctaves( self: Noise, callback: expr, point: tuple ): float =
     ## Applies the configured octaves to the request
     var total: float = 0
     var frequency: float = 1
@@ -95,8 +104,12 @@ template applyOctaves( self: Noise, callback: expr, x, y, z: float ): float =
     for i in 0..self.octaves:
         let noise = callback(
             self,
-            (x * frequency, y * frequency, z * frequency)
+            when compiles(point.z):
+                (point.x * frequency, point.y * frequency, point.z * frequency)
+            else:
+                (point.x * frequency, point.y * frequency)
         )
+
         total = total + amplitude * noise
 
         maxValue = maxValue + amplitude
@@ -113,15 +126,22 @@ proc perlin* ( self: Noise, x, y, z: int|float ): float =
     ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
     applyOctaves(
-        self, perlinNoise,
-        float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
+        self, perlin3,
+        (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1) )
+
+proc perlin* ( self: Noise, x, y: int|float ): float =
+    ## Returns the noise at the given offset. The value returned will be
+    ## between 0 and 1.
+    ##
+    ## Note: This method tweaks the input values by just a bit to make sure
+    ## there are decimal points. If you don't want that, use the 'purePerlin'
+    ## method instead
+    applyOctaves( self, perlin2, (x: float(x) * 0.1, y: float(y) * 0.1) )
 
 proc purePerlin* ( self: Noise, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input. The
     ## value returned will be between 0 and 1.
-    applyOctaves(
-        self, perlinNoise,
-        float(x), float(y), float(z) )
+    applyOctaves( self, perlin3, (x: float(x), y: float(y), z: float(z)) )
 
 
 proc simplex* ( self: Noise, x, y, z: int|float ): float =
@@ -133,14 +153,12 @@ proc simplex* ( self: Noise, x, y, z: int|float ): float =
     ## method instead
     applyOctaves(
         self, simplexNoise,
-        float(x) * 0.1, float(y) * 0.1, float(z) * 0.1 )
+        (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1) )
 
 proc pureSimplex* ( self: Noise, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input. The
     ## value returned will be between 0 and 1.
-    applyOctaves(
-        self, noise,
-        float(x), float(y), float(z) )
+    applyOctaves( self, simplexNoise, (x: float(x), y: float(y), z: float(z)) )
 
 
 proc get* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
