@@ -4,10 +4,6 @@ randomize()
 
 suite "Perlin Noise should":
 
-    test "Allow for const instantation":
-        const noise = newNoise(123444)
-        discard noise.perlin(1, 2, 3)
-
     test "Produce values from 0 to 1":
         let noise = newNoise(987654321)
         for x in 0..50:
