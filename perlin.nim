@@ -143,6 +143,11 @@ proc purePerlin* ( self: Noise, x, y, z: int|float ): float =
     ## value returned will be between 0 and 1.
     applyOctaves( self, perlin3, (x: float(x), y: float(y), z: float(z)) )
 
+proc purePerlin* ( self: Noise, x, y: int|float ): float =
+    ## Returns the noise at the given offset without modifying the input. The
+    ## value returned will be between 0 and 1.
+    applyOctaves( self, perlin2, (x: float(x), y: float(y)) )
+
 
 proc simplex* ( self: Noise, x, y, z: int|float ): float =
     ## Returns the noise at the given offset. The value returned will be
