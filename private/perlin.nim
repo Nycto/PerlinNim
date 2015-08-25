@@ -6,7 +6,7 @@ proc lerp( a, b, x: float ): float {.inline.} =
     ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
     a + x * (b - a)
 
-template withSetup(
+template withPerlinSetup(
     point: tuple, unit, pos, faded: expr, body: stmt
 ) {.immediate.} =
     ## Sets up three standard variables needed to run the generation
@@ -29,7 +29,7 @@ template withSetup(
 proc perlin3 ( self: Noise, point: Point3d[float] ): float {.inline.} =
     ## Returns the noise at the given offset
 
-    withSetup(point, unit, pos, faded):
+    withPerlinSetup(point, unit, pos, faded):
 
         # The hash coordinates of the 8 corners
         let aaa = hash(self, unit, 0, 0, 0, pos,  0,  0,  0)
@@ -49,7 +49,7 @@ proc perlin3 ( self: Noise, point: Point3d[float] ): float {.inline.} =
 proc perlin2 ( self: Noise, point: Point2D[float] ): float {.inline.} =
     ## Returns the noise at the given offset
 
-    withSetup(point, unit, pos, faded):
+    withPerlinSetup(point, unit, pos, faded):
         let aa = hash(self, unit, 0, 0, pos,  0,  0)
         let ab = hash(self, unit, 0, 1, pos,  0, -1)
         let ba = hash(self, unit, 1, 0, pos, -1,  0)
