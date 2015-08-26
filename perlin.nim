@@ -157,13 +157,27 @@ proc simplex* ( self: Noise, x, y, z: int|float ): float =
     ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
     applyOctaves(
-        self, simplexNoise,
+        self, simplex3,
         (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1) )
+
+proc simplex* ( self: Noise, x, y: int|float ): float =
+    ## Returns the noise at the given offset. The value returned will be
+    ## between 0 and 1.
+    ##
+    ## Note: This method tweaks the input values by just a bit to make sure
+    ## there are decimal points. If you don't want that, use the 'purePerlin'
+    ## method instead
+    applyOctaves( self, simplex2, (x: float(x) * 0.1, y: float(y) * 0.1) )
 
 proc pureSimplex* ( self: Noise, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input. The
     ## value returned will be between 0 and 1.
-    applyOctaves( self, simplexNoise, (x: float(x), y: float(y), z: float(z)) )
+    applyOctaves( self, simplex3, (x: float(x), y: float(y), z: float(z)) )
+
+proc pureSimplex* ( self: Noise, x, y: int|float ): float =
+    ## Returns the noise at the given offset without modifying the input. The
+    ## value returned will be between 0 and 1.
+    applyOctaves( self, simplex2, (x: float(x), y: float(y)) )
 
 
 proc get* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
@@ -177,10 +191,29 @@ proc get* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
     of NoiseType.perlin: return perlin(self, x, y, z)
     of NoiseType.simplex: return simplex(self, x, y, z)
 
+proc get* ( self: Noise, typ: NoiseType, x, y: int|float ): float =
+    ## Returns the noise at the given offset. The value returned will be
+    ## between 0 and 1.
+    ##
+    ## Note: This method tweaks the input values by just a bit to make sure
+    ## there are decimal points. If you don't want that, use the 'purePerlin'
+    ## method instead
+    case typ
+    of NoiseType.perlin: return perlin(self, x, y)
+    of NoiseType.simplex: return simplex(self, x, y)
+
 proc pureGet* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
     ## Returns the noise at the given offset without modifying the input. The
     ## value returned will be between 0 and 1.
     case typ
     of NoiseType.perlin: return purePerlin(self, x, y, z)
     of NoiseType.simplex: return pureSimplex(self, x, y, z)
+
+proc pureGet* ( self: Noise, typ: NoiseType, x, y: int|float ): float =
+    ## Returns the noise at the given offset without modifying the input. The
+    ## value returned will be between 0 and 1.
+    case typ
+    of NoiseType.perlin: return purePerlin(self, x, y)
+    of NoiseType.simplex: return pureSimplex(self, x, y)
+
 

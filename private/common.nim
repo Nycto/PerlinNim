@@ -13,6 +13,14 @@ type
         ## A helper definition for a 3d point
         tuple[x, y: U]
 
+    PointND*[U: float|int] = ## \
+        ## a point of N dimensions with a specific precision
+        Point3D[U]|Point2D[U]
+
+    Point* = ## \
+        ## A 2d or 3d point with any kind of precision
+        Point3D[float]|Point3D[int]|Point2D[float]|Point2D[int]
+
 proc shuffle[E]( seed: uint32, values: var seq[E] ) =
     ## Shuffles a sequence in place
 

@@ -30,7 +30,7 @@ parseOptions(opts):
 let noiseConf = newNoise(seed, octaves, persistence)
 
 for y in 0..(rows - 1):
-    let rand = noiseConf.get(noiseType, PI, float(y), E)
+    let rand = noiseConf.get(noiseType, PI, float(y))
     let offset = int(rand * float(columns - 1))
     stdout.write(repeatChar(offset, ' '))
     stdout.write(".\n")

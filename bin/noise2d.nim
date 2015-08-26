@@ -32,7 +32,7 @@ let noiseConf = newNoise(seed, octaves, persistence)
 
 for y in 0..(rows - 1):
     for x in 0..(columns - 1):
-        let index = int(floor(symbols.len * noiseConf.get(noiseType, x, y, 0)))
+        let index = int(floor(symbols.len * noiseConf.get(noiseType, x, y)))
         stdout.write( symbols[index] )
     stdout.write("\n")
 

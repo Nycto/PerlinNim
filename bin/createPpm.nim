@@ -76,8 +76,7 @@ for point in image.pixels:
         255 * noiseConf.get(
             noiseType,
             float(point.x) / zoom,
-            float(point.y) / zoom,
-            PI) )
+            float(point.y) / zoom) )
     image.draw( shade, shade, shade )
 
 
