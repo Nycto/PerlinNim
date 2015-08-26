@@ -2,7 +2,7 @@
 ## Shared methods for generating noise
 ##
 
-import sequtils, math, random/mersenne
+import sequtils, random/mersenne
 
 type
     Point3D*[U: float|int] = ## \
