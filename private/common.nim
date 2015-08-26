@@ -47,14 +47,14 @@ proc buildPermutations*( seed: uint32 ): array[0..511, int] =
     for i in 0..511:
         result[i] = base[i mod 256]
 
-template map*( point: tuple, apply: expr ): expr =
+template map*( point: Point, apply: expr ): expr =
     ## Applies a callback to all the values in a point
     when compiles(point.z):
         ( x: apply(point.x), y: apply(point.y), z: apply(point.z) )
     else:
         ( x: apply(point.x), y: apply(point.y) )
 
-template mapIt*( point: tuple, kind: typedesc, apply: expr ): expr =
+template mapIt*( point: Point, kind: typedesc, apply: expr ): expr =
     ## Applies a callback to all the values in a point
     var output: array[3, kind]
     block applyItBlock:

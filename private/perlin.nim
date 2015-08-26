@@ -7,7 +7,7 @@ proc lerp( a, b, x: float ): float {.inline.} =
     a + x * (b - a)
 
 template withPerlinSetup(
-    point: tuple, unit, pos, faded: expr, body: stmt
+    point: Point, unit, pos, faded: expr, body: stmt
 ) {.immediate.} =
     ## Sets up three standard variables needed to run the generation
 

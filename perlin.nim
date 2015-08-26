@@ -92,7 +92,7 @@ template hash(
 include private/perlin, private/simplex
 
 
-template applyOctaves( self: Noise, callback: expr, point: tuple ): float =
+template applyOctaves( self: Noise, callback: expr, point: Point ): float =
     ## Applies the configured octaves to the request
     var total: float = 0
     var frequency: float = 1
