@@ -1295,74 +1295,74 @@ Creates a new noise instance with a random seed
 </dd>
 <dt id="perlin"><a name="perlin,Noise,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">perlin</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-<p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
+<p>Returns the noise at the given offset. Returns a value between 0 and 1</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
 <dt id="perlin"><a name="perlin,Noise,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">perlin</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-<p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
+<p>Returns the noise at the given offset. Returns a value between 0 and 1</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
 <dt id="purePerlin"><a name="purePerlin,Noise,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">purePerlin</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
+Returns the noise at the given offset without modifying the input. Returns a value between 0 and 1
 
 </dd>
 <dt id="purePerlin"><a name="purePerlin,Noise,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">purePerlin</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
+Returns the noise at the given offset without modifying the input. Returns a value between 0 and 1
 
 </dd>
 <dt id="simplex"><a name="simplex,Noise,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">simplex</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-<p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
+<p>Returns the noise at the given offset. Returns a value between 0 and 1</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
 <dt id="simplex"><a name="simplex,Noise,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">simplex</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-<p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
+<p>Returns the noise at the given offset. Returns a value between 0 and 1</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
 <dt id="pureSimplex"><a name="pureSimplex,Noise,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pureSimplex</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
+Returns the noise at the given offset without modifying the input. Returns a value between 0 and 1
 
 </dd>
 <dt id="pureSimplex"><a name="pureSimplex,Noise,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pureSimplex</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
+Returns the noise at the given offset without modifying the input. Returns a value between 0 and 1
 
 </dd>
 <dt id="get"><a name="get,Noise,NoiseType,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">get</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">NoiseType</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-<p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
+<p>Returns the noise at the given offset. Returns a value between 0 and 1</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
 <dt id="get"><a name="get,Noise,NoiseType,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">get</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">NoiseType</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-<p>Returns the noise at the given offset. The value returned will be between 0 and 1.</p>
+<p>Returns the noise at the given offset. Returns a value between 0 and 1</p>
 <p>Note: This method tweaks the input values by just a bit to make sure there are decimal points. If you don't want that, use the 'purePerlin' method instead</p>
 
 
 </dd>
 <dt id="pureGet"><a name="pureGet,Noise,NoiseType,,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pureGet</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">NoiseType</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
+Returns the noise at the given offset without modifying the input. Returns a value between 0 and 1
 
 </dd>
 <dt id="pureGet"><a name="pureGet,Noise,NoiseType,,"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pureGet</span><span class="Operator">*</span><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <span class="Identifier">Noise</span><span class="Other">;</span> <span class="Identifier">typ</span><span class="Other">:</span> <span class="Identifier">NoiseType</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">int</span> <span class="Operator">|</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span></pre></dt>
 <dd>
-Returns the noise at the given offset without modifying the input. The value returned will be between 0 and 1.
+Returns the noise at the given offset without modifying the input. Returns a value between 0 and 1
 
 </dd>
 
@@ -1375,7 +1375,7 @@ Returns the noise at the given offset without modifying the input. The value ret
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-08-25 21:12:42 UTC</small>
+        <small>Made with Nim. Generated: 2015-08-25 21:15:36 UTC</small>
       </div>
     </div>
   </div>
