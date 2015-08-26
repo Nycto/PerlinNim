@@ -1,3 +1,4 @@
 perlin.nim
 test
 build
+*.ppm
