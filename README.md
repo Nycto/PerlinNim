@@ -25,11 +25,11 @@ let noise = newNoise()
 # Output a 20x10 grid of noise
 for y in 0..10:
     for x in 0..20:
-        let value = noise.simplex(x, y, 0)
+        let value = noise.simplex(x, y)
         # If you wanted to use Perlin noise, you would swap that line out with:
-        # let value = noise.perlin(x, y, 0)
+        # let value = noise.perlin(x, y)
 
-        stdout.write( int(9 * value) )
+        stdout.write( int(10 * value) )
     stdout.write("\n")
 ```
 
