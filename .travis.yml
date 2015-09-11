@@ -1,17 +1,4 @@
-os:
-    - linux
+os: linux
 language: c
-install:
-    - git clone -b devel --depth 1 git://github.com/Araq/Nim.git
-    - (cd Nim && sh bootstrap.sh)
-    - export PATH=`pwd`/Nim/bin:$PATH
-    - git clone https://github.com/nim-lang/nimble.git
-    - (cd nimble && nim c src/nimble)
-    - export PATH=`pwd`/nimble/src:$PATH
-    - nimble install --accept
-script:
-    - make
-    - ./build/noise2d --perlin
-    - ./build/noise1d --perlin
-    - ./build/noise2d --simplex
-    - ./build/noise1d --simplex --zoom=2
+install: make travis-install
+script: make
