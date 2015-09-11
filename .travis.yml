@@ -1,4 +1,9 @@
 os: linux
 language: c
 install: make travis-install
-script: make
+script:
+    - make
+    - ./build/noise2d --perlin
+    - ./build/noise1d --perlin
+    - ./build/noise2d --simplex
+    - ./build/noise1d --simplex --zoom=2
