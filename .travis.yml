@@ -3,7 +3,7 @@ language: c
 install: make travis-install
 script:
     - make
-    - ./build/noise2d --perlin
-    - ./build/noise1d --perlin
-    - ./build/noise2d --simplex
-    - ./build/noise1d --simplex --zoom=2
+    - ./build/bin/noise2d --perlin
+    - ./build/bin/noise1d --perlin
+    - ./build/bin/noise2d --simplex
+    - ./build/bin/noise1d --simplex --zoom=2
