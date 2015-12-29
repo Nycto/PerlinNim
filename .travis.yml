@@ -7,3 +7,4 @@ script:
     - ./build/bin/noise1d --perlin
     - ./build/bin/noise2d --simplex
     - ./build/bin/noise1d --simplex --zoom=2
+sudo: false
