@@ -36,17 +36,25 @@ proc getSimplexCorners(
             return (second: (0, 1, 0), third: (1, 1, 0))
 
 proc getCornerOffset(
-    point: PointND[float],
-    ijk: tuple[i, j, k: int]|tuple[i, j: int],
+    point: Point2D[float],
+    ijk: tuple[i, j: int],
     multiplier: float
-): PointND[float] {.inline.} =
+): Point2D[float] {.inline.} =
     ## Calculates the offset for various corners
-    let x = point.x - float(ijk.i) + multiplier
-    let y = point.y - float(ijk.j) + multiplier
-    when compiles(point.z) or compiles(point.k):
-        return ( x: x, y: y, z: point.z - float(ijk.k) + multiplier )
-    else:
-        return ( x: x, y: y )
+    (
+        x: point.x - float(ijk.i) + multiplier,
+        y: point.y - float(ijk.j) + multiplier )
+
+proc getCornerOffset(
+    point: Point3D[float],
+    ijk: tuple[i, j, k: int],
+    multiplier: float
+): Point3D[float] {.inline.} =
+    ## Calculates the offset for various corners
+    (
+        x: point.x - float(ijk.i) + multiplier,
+        y: point.y - float(ijk.j) + multiplier,
+        z: point.z - float(ijk.k) + multiplier )
 
 proc contribution(
     self: Noise,
