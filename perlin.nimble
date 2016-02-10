@@ -7,5 +7,5 @@ license       = "MIT"
 
 # Deps
 
-requires "nim >= 0.11.2"
+requires "nim >= 0.13.0"
 requires "random >= 0.5.1"
