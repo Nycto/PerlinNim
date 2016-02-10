@@ -96,7 +96,10 @@ template parse*(
             let parsed = parse
 
             block validation:
+                {.push hints: off.}
                 let it {.inject.} = parsed
+                {.pop.}
+
                 failIf(
                     not validate,
                     "Invalid value for --" & flag.key &
