@@ -64,7 +64,7 @@ template parseOptions*( name: expr, actions: stmt ) {.immediate.} =
     # allows us to validate that everything was appropriately handled
     failIf(
         name.flags.len > 0,
-        "Unexpected flag(s): " & name.flags.mapIt(string, it.key).join(", "))
+        "Unexpected flag(s): " & name.flags.mapIt(it.key).join(", "))
     failIf(
         name.args.len > 0,
         "Unexpected arg(s): " & name.args.join(", "))
