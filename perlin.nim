@@ -21,7 +21,7 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import math, private/common
+import math, random, private/common
 
 type
     Noise* = object

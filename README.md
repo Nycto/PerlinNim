@@ -15,7 +15,7 @@ A Quick Example
 ---------------
 
 ```nimrod
-import perlin, math
+import perlin, random, math
 
 # Call randomize from the 'math' module to ensure the seed is unique
 randomize()

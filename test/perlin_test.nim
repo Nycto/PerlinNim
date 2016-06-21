@@ -1,4 +1,4 @@
-import unittest, perlin, math
+import unittest, perlin, math, random
 
 randomize()
 

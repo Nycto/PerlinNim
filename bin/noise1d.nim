@@ -2,7 +2,7 @@
 ## Draws an 80 by 80 column of noise to the console
 ##
 
-import perlin, math, strutils, private/cli
+import perlin, math, random, strutils, private/cli
 
 randomize()
 

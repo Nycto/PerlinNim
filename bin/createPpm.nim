@@ -2,7 +2,7 @@
 ## Creates a PPM image file of perlin noise
 ##
 
-import perlin, math, parseopt2, os, strutils, private/cli
+import perlin, math, random, parseopt2, os, strutils, private/cli
 
 # Seed the random number generator in Nim
 randomize()
