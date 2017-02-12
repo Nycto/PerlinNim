@@ -70,11 +70,11 @@ proc contribution(
         let hash = self.hash(unit, ijk.i, ijk.j, ijk.k, point, 0, 0, 0)
         return t * t * t * t * hash
 
-template sum( point: Point ): expr =
+template sum( point: Point ): untyped =
     ## Adds all the points in a tuple
     point.x + point.y + (when compiles(point.z): point.z else: 0)
 
-template subtract( a, b: Point ): expr =
+template subtract( a, b: Point ): untyped =
     ## Subtracts two points
     when compiles(a.z) or compiles(b.z):
         ( x: a.x - b.x, y: a.y - b.y, z: a.z - b.z )
@@ -83,9 +83,9 @@ template subtract( a, b: Point ): expr =
 
 template withSimplexSetup(
     point: PointND[float],
-    F, G, unit, origin: expr,
-    body: stmt
-): expr {.immediate.} =
+    F, G, unit, origin: untyped,
+    body: untyped
+): untyped =
 
     # Skew the input space to determine which simplex cell we're in
     let skew = sum(point) * F

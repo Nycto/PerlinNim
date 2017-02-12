@@ -24,17 +24,17 @@ type
         args: seq[string]
         flags: seq[Flag]
 
-macro str( expression: expr ): expr =
+macro str(expression: untyped): untyped =
     ## Converts an expression to a string
-    strVal( toStrLit(expression) )
+    strVal(toStrLit(expression))
 
-template failIf ( condition: expr, msg: expr ) =
+template failIf (condition: untyped, msg: untyped) =
     ## Quits with a failure code and a message
     if condition:
         stderr.write("Error: ", msg, "\n")
         quit(1)
 
-template parseOptions*( name: expr, actions: stmt ) {.immediate.} =
+template parseOptions*(name: untyped, actions: untyped) =
     ## Produces a CLIOptions object to be parsed
     var args: seq[string] = @[]
     var flags: seq[Flag] = @[]
@@ -46,11 +46,11 @@ template parseOptions*( name: expr, actions: stmt ) {.immediate.} =
             args.add(key)
         of cmdLongOption, cmdShortOption:
             if val == "":
-                flags.add(Flag(kind: withoutValue, key: key.toLower))
+                flags.add(Flag(kind: withoutValue, key: key.toLowerAscii))
             else:
                 flags.add(Flag(
                     kind: withValue,
-                    key: key.toLower,
+                    key: key.toLowerAscii,
                     val: val))
         of cmdEnd:
             failIf(true, "Internal CLI parsing error")
@@ -69,9 +69,7 @@ template parseOptions*( name: expr, actions: stmt ) {.immediate.} =
         name.args.len > 0,
         "Unexpected arg(s): " & name.args.join(", "))
 
-template forFlag(
-    opts: var CLIOptions, keys: openArray[string], name: expr, action: stmt
-) {.immediate.} =
+template forFlag(opts: var CLIOptions, keys: openArray[string], name: untyped, action: untyped) =
     ## Executes the given action if the command line options contains any
     ## of the given keys
     let keySet = toSet[string](keys)
@@ -82,9 +80,9 @@ template forFlag(
 
 template parse*(
     opts: var CLIOptions,
-    variable: expr, keys: openArray[string],
-    parse: expr, validate: expr = true
-) {.immediate.} =
+    variable: untyped, keys: openArray[string],
+    parse: untyped, validate: untyped = true
+) =
     ## Parses a command line key/value flag: --key=value
     forFlag(opts, keys, flag):
         failIf(
@@ -109,12 +107,12 @@ template parse*(
         except:
             failIf(true,
                 "Invalid value for " & str(variable) & ". " &
-                capitalize(getCurrentExceptionMsg()) )
+                capitalizeAscii(getCurrentExceptionMsg()))
 
 template parseFlag*(
     opts: var CLIOptions,
-    variable: expr, keys: openArray[string],
-    parse: expr
+    variable: untyped, keys: openArray[string],
+    parse: untyped
 ) =
     ## Parses a simple command line flag: --key
     forFlag(opts, keys, flag):
@@ -123,7 +121,7 @@ template parseFlag*(
             "CLI Option does not expect a value: --" & flag.key)
         variable = parse
 
-template parseArg*( opts: var CLIOptions, variable: expr ) =
+template parseArg*(opts: var CLIOptions, variable: untyped) =
     ## Parses an argument from the command line
     failIf(
         opts.args.len == 0,

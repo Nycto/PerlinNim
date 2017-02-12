@@ -43,56 +43,49 @@ proc randomSeed*(): uint32 {.inline.} =
     ## Returns a random seed that can be fed into a constructor
     uint32(random(high(int)))
 
-proc newNoise*(
-    seed: uint32,
-    octaves: int = 1, persistence: float = 0.5
-): Noise =
+proc newNoise*(seed: uint32, octaves: int = 1, persistence: float = 0.5): Noise =
     ## Creates a new noise instance with the given seed
     ## * `octaves` allows you to combine multiple layers of noise
     ##   into a single result
     ## * `persistence` is how much impact each successive octave has on
     ##   the result
     assert(octaves >= 1)
-    return Noise(
-        perm: buildPermutations(seed),
-        octaves: octaves, persistence: persistence )
+    return Noise(perm: buildPermutations(seed), octaves: octaves, persistence: persistence)
 
-proc newNoise*( octaves: int, persistence: float ): Noise =
+proc newNoise*(octaves: int, persistence: float): Noise =
     ## Creates a new noise instance with a random seed
     ## * `octaves` allows you to combine multiple layers of noise
     ##   into a single result
     ## * `persistence` is how much impact each successive octave has on
     ##   the result
-    newNoise( randomSeed(), octaves, persistence )
+    newNoise(randomSeed(), octaves, persistence)
 
 proc newNoise*(): Noise =
     ## Creates a new noise instance with a random seed
-    newNoise( 1, 1.0 )
+    newNoise(1, 1.0)
 
 template hash(
     self: Noise,
-    unit: Point3D[int], ux, uy, uz: expr,
-    pos: Point3D[float], gx, gy, gz: expr
-): expr =
+    unit: Point3D[int], ux, uy, uz: untyped,
+    pos: Point3D[float], gx, gy, gz: untyped
+): untyped =
     ## Generates the hash coordinate given three expressions
-    let gIndex =
-        self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
+    let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
     grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
 
 template hash(
     self: Noise,
-    unit: Point2D[int], ux, uy: expr,
-    pos: Point2D[float], gx, gy: expr
-): expr =
+    unit: Point2D[int], ux, uy: untyped,
+    pos: Point2D[float], gx, gy: untyped
+): untyped =
     ## Generates the hash coordinate given three expressions
-    let gIndex =
-        self.perm[unit.x + ux + self.perm[unit.y + uy]]
+    let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy]]
     grad(gIndex, pos.x + gx, pos.y + gy, 0)
 
 include private/perlin, private/simplex
 
 
-template applyOctaves( self: Noise, callback: expr, point: Point ): float =
+template applyOctaves(self: Noise, callback: untyped, point: Point): float =
     ## Applies the configured octaves to the request
     var total: float = 0
     var frequency: float = 1
@@ -118,65 +111,61 @@ template applyOctaves( self: Noise, callback: expr, point: Point ): float =
 
     total / maxValue
 
-proc perlin* ( self: Noise, x, y, z: int|float ): float =
+proc perlin* (self: Noise, x, y, z: int|float): float =
     ## Returns the noise at the given offset. Returns a value between 0 and 1
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
     ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
-    applyOctaves(
-        self, perlin3,
-        (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1) )
+    applyOctaves(self, perlin3, (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1))
 
-proc perlin* ( self: Noise, x, y: int|float ): float =
+proc perlin* (self: Noise, x, y: int|float): float =
     ## Returns the noise at the given offset. Returns a value between 0 and 1
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
     ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
-    applyOctaves( self, perlin2, (x: float(x) * 0.1, y: float(y) * 0.1) )
+    applyOctaves(self, perlin2, (x: float(x) * 0.1, y: float(y) * 0.1))
 
-proc purePerlin* ( self: Noise, x, y, z: int|float ): float =
+proc purePerlin* (self: Noise, x, y, z: int|float): float =
     ## Returns the noise at the given offset without modifying the input.
     ## Returns a value between 0 and 1
-    applyOctaves( self, perlin3, (x: float(x), y: float(y), z: float(z)) )
+    applyOctaves(self, perlin3, (x: float(x), y: float(y), z: float(z)))
 
-proc purePerlin* ( self: Noise, x, y: int|float ): float =
+proc purePerlin* (self: Noise, x, y: int|float): float =
     ## Returns the noise at the given offset without modifying the input.
     ## Returns a value between 0 and 1
-    applyOctaves( self, perlin2, (x: float(x), y: float(y)) )
+    applyOctaves(self, perlin2, (x: float(x), y: float(y)))
 
 
-proc simplex* ( self: Noise, x, y, z: int|float ): float =
+proc simplex* (self: Noise, x, y, z: int|float): float =
     ## Returns the noise at the given offset. Returns a value between 0 and 1
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
     ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
-    applyOctaves(
-        self, simplex3,
-        (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1) )
+    applyOctaves(self, simplex3, (x: float(x) * 0.1, y: float(y) * 0.1, z: float(z) * 0.1))
 
-proc simplex* ( self: Noise, x, y: int|float ): float =
+proc simplex* (self: Noise, x, y: int|float): float =
     ## Returns the noise at the given offset. Returns a value between 0 and 1
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
     ## there are decimal points. If you don't want that, use the 'purePerlin'
     ## method instead
-    applyOctaves( self, simplex2, (x: float(x) * 0.1, y: float(y) * 0.1) )
+    applyOctaves(self, simplex2, (x: float(x) * 0.1, y: float(y) * 0.1))
 
-proc pureSimplex* ( self: Noise, x, y, z: int|float ): float =
+proc pureSimplex* (self: Noise, x, y, z: int|float): float =
     ## Returns the noise at the given offset without modifying the input.
     ## Returns a value between 0 and 1
-    applyOctaves( self, simplex3, (x: float(x), y: float(y), z: float(z)) )
+    applyOctaves(self, simplex3, (x: float(x), y: float(y), z: float(z)))
 
-proc pureSimplex* ( self: Noise, x, y: int|float ): float =
+proc pureSimplex* (self: Noise, x, y: int|float): float =
     ## Returns the noise at the given offset without modifying the input.
     ## Returns a value between 0 and 1
-    applyOctaves( self, simplex2, (x: float(x), y: float(y)) )
+    applyOctaves(self, simplex2, (x: float(x), y: float(y)))
 
 
-proc get* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
+proc get* (self: Noise, typ: NoiseType, x, y, z: int|float): float =
     ## Returns the noise at the given offset. Returns a value between 0 and 1
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
@@ -186,7 +175,7 @@ proc get* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
     of NoiseType.perlin: return perlin(self, x, y, z)
     of NoiseType.simplex: return simplex(self, x, y, z)
 
-proc get* ( self: Noise, typ: NoiseType, x, y: int|float ): float =
+proc get* (self: Noise, typ: NoiseType, x, y: int|float): float =
     ## Returns the noise at the given offset. Returns a value between 0 and 1
     ##
     ## Note: This method tweaks the input values by just a bit to make sure
@@ -196,14 +185,14 @@ proc get* ( self: Noise, typ: NoiseType, x, y: int|float ): float =
     of NoiseType.perlin: return perlin(self, x, y)
     of NoiseType.simplex: return simplex(self, x, y)
 
-proc pureGet* ( self: Noise, typ: NoiseType, x, y, z: int|float ): float =
+proc pureGet* (self: Noise, typ: NoiseType, x, y, z: int|float): float =
     ## Returns the noise at the given offset without modifying the input.
     ## Returns a value between 0 and 1
     case typ
     of NoiseType.perlin: return purePerlin(self, x, y, z)
     of NoiseType.simplex: return pureSimplex(self, x, y, z)
 
-proc pureGet* ( self: Noise, typ: NoiseType, x, y: int|float ): float =
+proc pureGet* (self: Noise, typ: NoiseType, x, y: int|float): float =
     ## Returns the noise at the given offset without modifying the input.
     ## Returns a value between 0 and 1
     case typ

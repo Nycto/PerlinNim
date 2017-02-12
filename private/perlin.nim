@@ -6,9 +6,7 @@ proc lerp( a, b, x: float ): float {.inline.} =
     ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
     a + x * (b - a)
 
-template withPerlinSetup(
-    point: Point, unit, pos, faded: expr, body: stmt
-) {.immediate.} =
+template withPerlinSetup(point: Point, unit, pos, faded: untyped, body: untyped) =
     ## Sets up three standard variables needed to run the generation
 
     # Calculate the "unit cube" that the point asked will be located in

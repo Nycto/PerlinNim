@@ -21,7 +21,7 @@ type
         ## A 2d or 3d point with any kind of precision
         Point3D[float]|Point3D[int]|Point2D[float]|Point2D[int]
 
-proc shuffle[E]( seed: uint32, values: var seq[E] ) =
+proc shuffle[E](seed: uint32, values: var seq[E]) =
     ## Shuffles a sequence in place
 
     var prng = newMersenneTwister(seed)
@@ -35,7 +35,7 @@ proc shuffle[E]( seed: uint32, values: var seq[E] ) =
         assert(int(i) < index)
         swap values[int(i)], values[index]
 
-proc buildPermutations*( seed: uint32 ): array[0..511, int] =
+proc buildPermutations*(seed: uint32): array[0..511, int] =
     ## Returns a hash lookup table. It is all the numbers from 0 to 255
     ## (inclusive) in a randomly sorted array, twice over
 
@@ -47,14 +47,14 @@ proc buildPermutations*( seed: uint32 ): array[0..511, int] =
     for i in 0..511:
         result[i] = base[i mod 256]
 
-template map*( point: Point, apply: expr ): expr =
+template map*(point: Point, apply: untyped): untyped =
     ## Applies a callback to all the values in a point
     when compiles(point.z):
-        ( x: apply(point.x), y: apply(point.y), z: apply(point.z) )
+        (x: apply(point.x), y: apply(point.y), z: apply(point.z))
     else:
-        ( x: apply(point.x), y: apply(point.y) )
+        (x: apply(point.x), y: apply(point.y))
 
-template mapIt*( point: Point, kind: typedesc, apply: expr ): expr =
+template mapIt*(point: Point, kind: typedesc, apply: untyped): untyped =
     ## Applies a callback to all the values in a point
     var output: array[3, kind]
     block applyItBlock:
@@ -67,11 +67,11 @@ template mapIt*( point: Point, kind: typedesc, apply: expr ): expr =
         block applyItBlock:
             let it {.inject.} = point.z
             output[2] = apply
-        ( x: output[0], y: output[1], z: output[2] )
+        (x: output[0], y: output[1], z: output[2])
     else:
-        ( x: output[0], y: output[1] )
+        (x: output[0], y: output[1])
 
-proc grad*( hash: int, x, y, z: float ): float {.inline.} =
+proc grad*(hash: int, x, y, z: float): float {.inline.} =
     ## Calculate the dot product of a randomly selected gradient vector and the
     ## 8 location vectors
     case (hash and 0xF)
