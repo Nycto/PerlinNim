@@ -21,7 +21,7 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import math, random, private/common
+import math, random, perlin/private/common
 
 type
     Noise* = object
@@ -82,7 +82,7 @@ template hash(
     let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy]]
     grad(gIndex, pos.x + gx, pos.y + gy, 0)
 
-include private/perlin, private/simplex
+include perlin/private/perlin, perlin/private/simplex
 
 
 template applyOctaves(self: Noise, callback: untyped, point: Point): float =
