@@ -29,7 +29,7 @@ parseOptions(opts):
     opts.parseFlag(noiseType, ["simplex"], NoiseType.simplex)
 
     opts.parseArg(filename)
-    if not filename.strip.toLower.endsWith(".ppm"):
+    if not filename.strip.toLowerAscii.endsWith(".ppm"):
         filename = filename.strip & ".ppm"
 
 
