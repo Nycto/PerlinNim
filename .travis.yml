@@ -4,3 +4,6 @@ install: bash <(curl -s https://raw.githubusercontent.com/Nycto/ExtraNimble/mast
 before_script: export PATH="nim/bin:$PATH"
 script: nimble all
 sudo: false
+cache:
+  directories:
+    - nim
