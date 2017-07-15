@@ -1,10 +1,9 @@
 os: linux
 language: c
-install: make travis-install
-script:
-    - make
-    - ./build/bin/noise2d --perlin
-    - ./build/bin/noise1d --perlin
-    - ./build/bin/noise2d --simplex
-    - ./build/bin/noise1d --simplex --zoom=2
+install: bash <(curl -s https://raw.githubusercontent.com/Nycto/ExtraNimble/master/travis-setup.sh)
+before_script: export PATH="$HOME/Nim/bin:$PATH"
+script: nimble all
 sudo: false
+cache:
+  directories:
+    - $HOME/Nim
