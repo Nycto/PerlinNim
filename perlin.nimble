@@ -12,7 +12,7 @@ requires "nim >= 0.14.0"
 
 # Targets
 
-exec "test -d .build/ExtraNimble || git clone ../ExtraNimble .build/ExtraNimble"
+exec "test -d .build/ExtraNimble || git clone https://github.com/Nycto/ExtraNimble.git .build/ExtraNimble"
 include ".build/ExtraNimble/extranimble.nim"
 
 after all:
