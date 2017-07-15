@@ -6,4 +6,4 @@ script: nimble all
 sudo: false
 cache:
   directories:
-    - nim
+    - $HOME/Nim
