@@ -1,7 +1,7 @@
 os: linux
 language: c
 install: bash <(curl -s https://raw.githubusercontent.com/Nycto/ExtraNimble/master/travis-setup.sh)
-before_script: export PATH="nim/bin:$PATH"
+before_script: export PATH="$HOME/Nim/bin:$PATH"
 script: nimble all
 sudo: false
 cache:
