@@ -13,7 +13,8 @@ requires "nim >= 0.14.0"
 # Targets
 
 exec "test -d .build/ExtraNimble || git clone https://github.com/Nycto/ExtraNimble.git .build/ExtraNimble"
-include ".build/ExtraNimble/extranimble.nim"
+when existsDir(thisDir() & "/.build"):
+    include ".build/ExtraNimble/extranimble.nim"
 
 after bin:
     exec ".build/bin/noise2d.nim".outBin & " --perlin"
