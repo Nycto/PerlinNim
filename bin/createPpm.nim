@@ -8,7 +8,7 @@ import perlin, math, random, parseopt2, os, strutils, private/cli
 randomize()
 
 # The various config options to be filled from the CLI
-var filename: string = nil
+var filename: string
 var noiseType = NoiseType.perlin
 var width = 600
 var height = 600
