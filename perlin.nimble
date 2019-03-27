@@ -11,11 +11,13 @@ skipDirs      = @[]
 
 requires "nim >= 0.14.0"
 
-## Targets
-#
-#after bin:
-#    exec ".build/bin/noise2d.nim".outBin & " --perlin"
-#    exec ".build/bin/noise1d.nim".outBin & " --perlin"
-#    exec ".build/bin/noise2d.nim".outBin & " --simplex"
-#    exec ".build/bin/noise1d.nim".outBin & " --simplex --zoom=2"
+# Targets
+
+task demo, "Executes demo code":
+    exec "nimble c ./bin/noise1d.nim"
+    exec "nimble c ./bin/noise2d.nim"
+    exec "./bin/noise2d --perlin"
+    exec "./bin/noise1d --perlin"
+    exec "./bin/noise2d --simplex"
+    exec "./bin/noise1d --simplex --zoom=2"
 
