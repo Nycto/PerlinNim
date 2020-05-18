@@ -41,7 +41,7 @@ type
 
 proc randomSeed*(): uint32 {.inline.} =
     ## Returns a random seed that can be fed into a constructor
-    uint32(rand(high(int)))
+    uint32(rand(high(int32)))
 
 proc newNoise*(seed: uint32, octaves: int = 1, persistence: float = 0.5): Noise =
     ## Creates a new noise instance with the given seed
