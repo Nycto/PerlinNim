@@ -2,9 +2,7 @@
 ## Draws an 80 by 80 column of noise to the console
 ##
 
-import perlin, math, random, strutils, private/cli
-
-randomize()
+import perlin, math, random, strutils, private/cli, sugar
 
 # Seed the random number generator in Nim
 randomize()
@@ -19,15 +17,16 @@ var seed = randomSeed()
 var zoom = 1.0
 
 # Parse the command line options
-parseOptions(opts):
-    opts.parse(columns, ["width", "w", "cols", "columns"], parseInt(it), it > 0)
-    opts.parse(rows, ["height", "h", "rows", "r"], parseInt(it), it > 0)
-    opts.parse(octaves, ["octaves", "o"], parseInt(it), it > 0)
-    opts.parse(persistence, ["persistence", "p"], parseFloat(it), it > 0)
-    opts.parse(seed, ["seed", "s"], uint32(parseInt(it)))
-    opts.parse(zoom, ["zoom", "z"], parseFloat(it), it > 0)
-    opts.parseFlag(noiseType, ["perlin"], NoiseType.perlin)
-    opts.parseFlag(noiseType, ["simplex"], NoiseType.simplex)
+parse(
+    option(proc(it: int) = columns = it, ["width", "w", "cols", "columns"], (it) => parseInt(it), (it) => it > 0),
+    option(proc(it: int) = rows = it, ["height", "h", "rows", "r"], (it) => parseInt(it), (it) => it > 0),
+    option(proc(it: int) = octaves = it, ["octaves", "o"], (it) => parseInt(it), (it) => it > 0),
+    option(proc(it: float) = persistence = it, ["persistence", "p"], (it) => parseFloat(it), (it) => it > 0),
+    option(proc(it: uint32) = seed = it, ["seed", "s"], (it) => uint32(parseInt(it))),
+    option(proc(it: float) = zoom = it, ["zoom", "z"], (it) => parseFloat(it), (it) => it > 0),
+    flag(proc() = noiseType = NoiseType.perlin, ["perlin"]),
+    flag(proc() = noiseType = NoiseType.simplex, ["simplex"])
+)
 
 let noiseConf = newNoise(seed, octaves, persistence)
 
