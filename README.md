@@ -1,5 +1,8 @@
-PerlinNim [![Build Status](https://travis-ci.org/Nycto/PerlinNim.svg?branch=master)](https://travis-ci.org/Nycto/PerlinNim)
-===========
+PerlinNim
+=========
+
+[![Build](https://github.com/Nycto/PerlinNim/actions/workflows/build.yml/badge.svg)](https://github.com/Nycto/PerlinNim/actions/workflows/build.yml)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Nycto/PerlinNim/blob/main/LICENSE.md)
 
 A noise generation library for Nim, with support for both Perlin noise and
 Simplex noise.
@@ -39,4 +42,3 @@ License
 This library is released under the MIT License, which is pretty spiffy. You
 should have received a copy of the MIT License along with this program. If
 not, see http://www.opensource.org/licenses/mit-license.php
-
