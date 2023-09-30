@@ -1,0 +1,8 @@
+Point3D	perlin/private/common.html#Point3D	common: Point3D	
+Point2D	perlin/private/common.html#Point2D	common: Point2D	
+PointND	perlin/private/common.html#PointND	common: PointND	
+Point	perlin/private/common.html#Point	common: Point	
+buildPermutations	perlin/private/common.html#buildPermutations,uint32	common: buildPermutations(seed: uint32): array[0 .. 511, int]	
+map	perlin/private/common.html#map.t,Point,untyped	common: map(point: Point; apply: untyped): untyped	
+mapIt	perlin/private/common.html#mapIt.t,Point,typedesc,untyped	common: mapIt(point: Point; kind: typedesc; apply: untyped): untyped	
+grad	perlin/private/common.html#grad,int,float,float,float	common: grad(hash: int; x, y, z: float): float	

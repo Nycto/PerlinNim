@@ -1,0 +1,20 @@
+Noise	perlin.html#Noise	perlin: Noise	
+NoiseType	perlin.html#NoiseType	perlin: NoiseType	
+randomSeed	perlin.html#randomSeed	perlin: randomSeed(): uint32	
+newNoise	perlin.html#newNoise,uint32,int,float	perlin: newNoise(seed: uint32; octaves: int = 1; persistence: float = 0.5): Noise	
+newNoise	perlin.html#newNoise,int,float	perlin: newNoise(octaves: int; persistence: float): Noise	
+newNoise	perlin.html#newNoise	perlin: newNoise(): Noise	
+perlin	perlin.html#perlin,Noise,,,	perlin: perlin(self: Noise; x, y, z: int | float): float	
+perlin	perlin.html#perlin,Noise,,	perlin: perlin(self: Noise; x, y: int | float): float	
+purePerlin	perlin.html#purePerlin,Noise,,,	perlin: purePerlin(self: Noise; x, y, z: int | float): float	
+purePerlin	perlin.html#purePerlin,Noise,,	perlin: purePerlin(self: Noise; x, y: int | float): float	
+simplex	perlin.html#simplex,Noise,,,	perlin: simplex(self: Noise; x, y, z: int | float): float	
+simplex	perlin.html#simplex,Noise,,	perlin: simplex(self: Noise; x, y: int | float): float	
+pureSimplex	perlin.html#pureSimplex,Noise,,,	perlin: pureSimplex(self: Noise; x, y, z: int | float): float	
+pureSimplex	perlin.html#pureSimplex,Noise,,	perlin: pureSimplex(self: Noise; x, y: int | float): float	
+get	perlin.html#get,Noise,NoiseType,,,	perlin: get(self: Noise; typ: NoiseType; x, y, z: int | float): float	
+get	perlin.html#get,Noise,NoiseType,,	perlin: get(self: Noise; typ: NoiseType; x, y: int | float): float	
+pureGet	perlin.html#pureGet,Noise,NoiseType,,,	perlin: pureGet(self: Noise; typ: NoiseType; x, y, z: int | float): float	
+pureGet	perlin.html#pureGet,Noise,NoiseType,,	perlin: pureGet(self: Noise; typ: NoiseType; x, y: int | float): float	
+Simplex Noise	perlin.html#simplex-noise	 Simplex Noise	
+Perlin Noise	perlin.html#perlin-noise	 Perlin Noise	
