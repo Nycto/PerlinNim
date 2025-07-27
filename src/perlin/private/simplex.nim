@@ -2,6 +2,8 @@
 ## 3D Simplex noise generation
 ##
 
+import std/math, types, common
+
 # 3D Skewing and unskewing factors
 const F3 = 1.0 / 3.0
 const G3 = 1.0 / 6.0
@@ -105,7 +107,7 @@ proc contribution(
     let hash = self.hash(unit, ijk.i, ijk.j, point, 0, 0)
     return t * t * t * t * hash
 
-proc simplex3(self: Noise, point: Point3D[float]): float {.inline.} =
+proc simplex3*(self: Noise, point: Point3D[float]): float {.inline.} =
   ## 3D simplex noise
 
   withSimplexSetup(point, F3, G3, unit, origin):
@@ -123,7 +125,7 @@ proc simplex3(self: Noise, point: Point3D[float]): float {.inline.} =
       self.contribution(pos2, unit, ijk2) + self.contribution(pos3, unit, (1, 1, 1))
     )
 
-proc simplex2(self: Noise, point: Point2D[float]): float {.inline.} =
+proc simplex2*(self: Noise, point: Point2D[float]): float {.inline.} =
   ## 2D simplex noise
 
   withSimplexSetup(point, F2, G2, unit, origin):

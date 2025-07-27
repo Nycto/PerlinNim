@@ -21,74 +21,12 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import math, random, perlin/private/common
-
-type
-  Noise* = object
-    ## A noise instance
-    ## * `perm` is a set of random numbers used to generate the results
-    ## * `octaves` allows you to combine multiple layers of noise
-    ##   into a single result
-    ## * `persistence` is how much impact each successive octave has on
-    ##   the result
-    perm: array[0 .. 511, int]
-    octaves: int
-    persistence: float
-
-  NoiseType* {.pure.} = enum ## \
-    ## The types of noise available
-    perlin
-    simplex
+import std/random, perlin/private/[perlin, simplex, types]
+export perlin, simplex, types
 
 proc randomSeed*(): uint32 {.inline.} =
   ## Returns a random seed that can be fed into a constructor
-  uint32(rand(high(int32)))
-
-proc newNoise*(seed: uint32, octaves: int = 1, persistence: float = 0.5): Noise =
-  ## Creates a new noise instance with the given seed
-  ## * `octaves` allows you to combine multiple layers of noise
-  ##   into a single result
-  ## * `persistence` is how much impact each successive octave has on
-  ##   the result
-  assert(octaves >= 1)
-  return
-    Noise(perm: buildPermutations(seed), octaves: octaves, persistence: persistence)
-
-proc newNoise*(octaves: int, persistence: float): Noise =
-  ## Creates a new noise instance with a random seed
-  ## * `octaves` allows you to combine multiple layers of noise
-  ##   into a single result
-  ## * `persistence` is how much impact each successive octave has on
-  ##   the result
-  newNoise(randomSeed(), octaves, persistence)
-
-proc newNoise*(): Noise =
-  ## Creates a new noise instance with a random seed
-  newNoise(1, 1.0)
-
-template hash(
-    self: Noise,
-    unit: Point3D[int],
-    ux, uy, uz: untyped,
-    pos: Point3D[float],
-    gx, gy, gz: untyped,
-): untyped =
-  ## Generates the hash coordinate given three expressions
-  let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
-  grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
-
-template hash(
-    self: Noise,
-    unit: Point2D[int],
-    ux, uy: untyped,
-    pos: Point2D[float],
-    gx, gy: untyped,
-): untyped =
-  ## Generates the hash coordinate given three expressions
-  let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy]]
-  grad(gIndex, pos.x + gx, pos.y + gy, 0)
-
-include perlin/private/perlin, perlin/private/simplex
+  rand(uint32)
 
 template applyOctaves(self: Noise, callback: untyped, point: Point): float =
   ## Applies the configured octaves to the request

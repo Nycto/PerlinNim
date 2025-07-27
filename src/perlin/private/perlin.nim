@@ -2,7 +2,7 @@
 ## Perlin noise generation
 ##
 
-import math
+import std/math, types, common
 
 proc lerp(a, b, x: float): float {.inline.} =
   ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
@@ -26,7 +26,7 @@ template withPerlinSetup(point: Point, unit, pos, faded: untyped, body: untyped)
   # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
   return (body + 1) / 2
 
-proc perlin3(self: Noise, point: Point3d[float]): float {.inline.} =
+proc perlin3*(self: Noise, point: Point3d[float]): float {.inline.} =
   ## Returns the noise at the given offset
 
   withPerlinSetup(point, unit, pos, faded):
@@ -45,7 +45,7 @@ proc perlin3(self: Noise, point: Point3d[float]): float {.inline.} =
 
     lerp(y1, y2, faded.z)
 
-proc perlin2(self: Noise, point: Point2D[float]): float {.inline.} =
+proc perlin2*(self: Noise, point: Point2D[float]): float {.inline.} =
   ## Returns the noise at the given offset
 
   withPerlinSetup(point, unit, pos, faded):

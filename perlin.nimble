@@ -9,7 +9,7 @@ skipDirs      = @[]
 
 # Deps
 
-requires "nim >= 1.2.0"
+requires "nim >= 1.6"
 
 # Targets
 
@@ -20,4 +20,3 @@ task demo, "Executes demo code":
     exec "./bin/noise1d --perlin"
     exec "./bin/noise2d --simplex"
     exec "./bin/noise1d --simplex --zoom=2"
-
