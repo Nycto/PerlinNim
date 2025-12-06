@@ -5,17 +5,28 @@ on:
       - master
 jobs:
   docs:
-    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    container: nimlang/nim
+    container: nimlang/choosenim
     steps:
-    - uses: actions/checkout@v3
-    - run: nimble -y doc --index:on --out:docs --project src/perlin.nim
-    - run: cp docs/perlin.html docs/index.html
-    - name: Deploy documents
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs
+      - uses: actions/checkout@v3
+
+      - run: choosenim update -y 2.0.10
+
+      - run: apt-get install -y jq
+
+      - run: git config --global --add safe.directory "$(pwd)"
+
+      - run: echo "PROJECT_NAME=$(nimble dump --json | jq -r '.name')" >> $GITHUB_ENV
+
+      - run: nimble -y doc2 --out:docs --project "src/$PROJECT_NAME.nim"
+
+      - run: cp "docs/$PROJECT_NAME.html" "docs/index.html"
+
+      - run: find docs
+
+      - name: Deploy documents
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ !env.ACT }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs
