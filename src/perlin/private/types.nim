@@ -1,4 +1,5 @@
-import std/[sequtils, mersenne, random]
+import std/[sequtils, random]
+import random/mersenne
 
 type
   Noise* = object
@@ -42,13 +43,13 @@ proc persistence*(noise: Noise): auto =
 proc shuffle[E](seed: uint32, values: var seq[E]) =
   ## Shuffles a sequence in place
 
-  var prng = newMersenneTwister(seed)
+  var prng = initMersenneTwister(seed)
 
   let max = uint32(values.high)
 
   # Shuffle the array of numbers
   for i in 0u32 .. (max - 1u32):
-    let index = int(i + (prng.getNum() mod (max - i)) + 1u32)
+    let index = int(i + (prng.randomUint32() mod (max - i)) + 1u32)
     assert(index <= 255)
     assert(int(i) < index)
     swap values[int(i)], values[index]

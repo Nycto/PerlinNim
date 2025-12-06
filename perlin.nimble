@@ -10,6 +10,7 @@ skipDirs      = @[]
 # Deps
 
 requires "nim >= 1.6"
+requires "random >= 0.5"
 
 # Targets
 
