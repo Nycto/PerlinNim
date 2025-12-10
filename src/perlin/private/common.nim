@@ -4,55 +4,7 @@
 
 import std/importutils, types
 
-template hash*(
-    self: Noise,
-    unit: Point3D[int],
-    ux, uy, uz: untyped,
-    pos: Point3D[float],
-    gx, gy, gz: untyped,
-): untyped =
-  ## Generates the hash coordinate given three expressions
-  privateAccess(Noise)
-  let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
-  grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
-
-template hash*(
-    self: Noise,
-    unit: Point2D[int],
-    ux, uy: untyped,
-    pos: Point2D[float],
-    gx, gy: untyped,
-): untyped =
-  ## Generates the hash coordinate given three expressions
-  privateAccess(Noise)
-  let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy]]
-  grad(gIndex, pos.x + gx, pos.y + gy, 0)
-
-template map*(point: Point, apply: untyped): untyped =
-  ## Applies a callback to all the values in a point
-  when compiles(point.z):
-    (x: apply(point.x), y: apply(point.y), z: apply(point.z))
-  else:
-    (x: apply(point.x), y: apply(point.y))
-
-template mapIt*(point: Point, kind: typedesc, apply: untyped): untyped =
-  ## Applies a callback to all the values in a point
-  var output: array[3, kind]
-  block applyItBlock:
-    let it {.inject.} = point.x
-    output[0] = apply
-  block applyItBlock:
-    let it {.inject.} = point.y
-    output[1] = apply
-  when compiles(point.z):
-    block applyItBlock:
-      let it {.inject.} = point.z
-      output[2] = apply
-    (x: output[0], y: output[1], z: output[2])
-  else:
-    (x: output[0], y: output[1])
-
-proc grad*(hash: int, x, y, z: float): float {.inline.} =
+proc grad*(hash: int, x, y: float, z: float = 0): float {.inline.} =
   ## Calculate the dot product of a randomly selected gradient vector and the
   ## 8 location vectors
   case (hash and 0xF)
@@ -90,3 +42,51 @@ proc grad*(hash: int, x, y, z: float): float {.inline.} =
     return -y - z
   else:
     assert(false, "Should not happen")
+
+proc hash*(
+    self: Noise,
+    unit: Point3D[int],
+    ux, uy, uz: int,
+    pos: Point3D[float],
+    gx, gy, gz: float,
+): float {.inline.} =
+  ## Generates the hash coordinate given three expressions
+  privateAccess(Noise)
+  let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy + self.perm[unit.z + uz]]]
+  return grad(gIndex, pos.x + gx, pos.y + gy, pos.z + gz)
+
+proc hash*(
+    self: Noise, unit: Point2D[int], ux, uy: int, pos: Point2D[float], gx, gy: float
+): float {.inline.} =
+  ## Generates the hash coordinate given three expressions
+  privateAccess(Noise)
+  let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy]]
+  return grad(gIndex, pos.x + gx, pos.y + gy)
+
+template map*(point: Point, apply: untyped): untyped =
+  ## Applies a callback to all the values in a point
+  when compiles(point.z):
+    (x: apply(point.x), y: apply(point.y), z: apply(point.z))
+  else:
+    (x: apply(point.x), y: apply(point.y))
+
+template mapIt*(point: Point, kind: typedesc, apply: untyped): untyped =
+  ## Applies a callback to all the values in a point
+  var output: array[4, kind]
+  block applyItBlock:
+    let it {.inject.} = point.x
+    output[0] = apply
+
+  block applyItBlock:
+    let it {.inject.} = point.y
+    output[1] = apply
+
+  when compiles(point.z):
+    block applyItBlock:
+      let it {.inject.} = point.z
+      output[2] = apply
+
+  when point is Point3D:
+    (x: output[0], y: output[1], z: output[2])
+  else:
+    (x: output[0], y: output[1])
