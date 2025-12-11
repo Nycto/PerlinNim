@@ -18,15 +18,15 @@ type
     perlin
     simplex
 
-  Point3D*[U: float | int] = ## \
+  Point3D*[U: SomeNumber] = ## \
     ## A helper definition for a 3d point
     tuple[x, y, z: U]
 
-  Point2D*[U: float | int] = ## \
+  Point2D*[U: SomeNumber] = ## \
     ## A helper definition for a 3d point
     tuple[x, y: U]
 
-  PointND*[U: float | int] = ## \
+  PointND*[U: SomeNumber] = ## \
     ## a point of N dimensions with a specific precision
     Point3D[U] | Point2D[U]
 
