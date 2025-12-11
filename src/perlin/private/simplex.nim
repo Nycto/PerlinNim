@@ -51,7 +51,7 @@ proc contribution(
   if t < 0:
     return 0.0
   else:
-    let hash = self.hash(unit, ijk.i, ijk.j, ijk.k, point, 0, 0, 0)
+    let hash = self.hash(unit, ijk, point, [0, 0, 0])
     return t * t * t * t * hash
 
 template subtract(a, b: Point): untyped =
@@ -90,7 +90,7 @@ proc contribution(
   if t < 0:
     return 0.0
   else:
-    let hash = self.hash(unit, ijk.i, ijk.j, point, 0, 0)
+    let hash = self.hash(unit, ijk, point, [0, 0])
     return t * t * t * t * hash
 
 proc simplex3*(self: Noise, point: Point3D[float]): float {.inline.} =

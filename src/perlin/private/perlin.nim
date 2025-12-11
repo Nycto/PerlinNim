@@ -34,14 +34,14 @@ proc perlin3*(self: Noise, point: Point3d[float]): float {.inline.} =
 
   withPerlinSetup(point, unit, pos, faded):
     # The hash coordinates of the 8 corners
-    let aaa = hash(self, unit, 0, 0, 0, pos, 0, 0, 0)
-    let aba = hash(self, unit, 0, 1, 0, pos, 0, -1, 0)
-    let aab = hash(self, unit, 0, 0, 1, pos, 0, 0, -1)
-    let abb = hash(self, unit, 0, 1, 1, pos, 0, -1, -1)
-    let baa = hash(self, unit, 1, 0, 0, pos, -1, 0, 0)
-    let bba = hash(self, unit, 1, 1, 0, pos, -1, -1, 0)
-    let bab = hash(self, unit, 1, 0, 1, pos, -1, 0, -1)
-    let bbb = hash(self, unit, 1, 1, 1, pos, -1, -1, -1)
+    let aaa = hash(self, unit, [0, 0, 0], pos)
+    let aba = hash(self, unit, [0, 1, 0], pos)
+    let aab = hash(self, unit, [0, 0, 1], pos)
+    let abb = hash(self, unit, [0, 1, 1], pos)
+    let baa = hash(self, unit, [1, 0, 0], pos)
+    let bba = hash(self, unit, [1, 1, 0], pos)
+    let bab = hash(self, unit, [1, 0, 1], pos)
+    let bbb = hash(self, unit, [1, 1, 1], pos)
 
     let y1 = lerp(lerp(aaa, baa, faded.x), lerp(aba, bba, faded.x), faded.y)
     let y2 = lerp(lerp(aab, bab, faded.x), lerp(abb, bbb, faded.x), faded.y)
@@ -52,8 +52,8 @@ proc perlin2*(self: Noise, point: Point2D[float]): float {.inline.} =
   ## Returns the noise at the given offset
 
   withPerlinSetup(point, unit, pos, faded):
-    let aa = hash(self, unit, 0, 0, pos, 0, 0)
-    let ab = hash(self, unit, 0, 1, pos, 0, -1)
-    let ba = hash(self, unit, 1, 0, pos, -1, 0)
-    let bb = hash(self, unit, 1, 1, pos, -1, -1)
+    let aa = hash(self, unit, [0, 0], pos)
+    let ab = hash(self, unit, [0, 1], pos)
+    let ba = hash(self, unit, [1, 0], pos)
+    let bb = hash(self, unit, [1, 1], pos)
     lerp(lerp(aa, ba, faded.x), lerp(ab, bb, faded.x), faded.y)
