@@ -79,6 +79,9 @@ proc grad4(hash: int, x, y, z, w: float): float {.inline.} =
   else: assert(false, "Should not happen")
   #!fmt: on
 
+proc grad*(hash: int, p: Point4d[float]): float {.inline.} =
+  grad4(hash and 63, p.x, p.y, p.z, p.w)
+
 proc grad*(hash: int, p: Point3d[float]): float {.inline.} =
   grad4(hash and 15, p.x, p.y, p.z, 0)
 

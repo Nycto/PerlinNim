@@ -48,6 +48,14 @@ template applyOctaves(self: Noise, callback: untyped, point: Point): float =
 
   total / maxValue
 
+proc perlin*(self: Noise, x, y, z, w: SomeNumber): float =
+  ## Returns the noise at the given position. Returns a value between 0 and 1
+  ##
+  ## Note: This method tweaks the input values by just a bit to make sure
+  ## there are decimal points. If you don't want that, use the 'purePerlin'
+  ## method instead
+  applyOctaves(self, perlin4, [x.float, y.float, z.float, w.float].mapIt(it * 0.1))
+
 proc perlin*(self: Noise, x, y, z: SomeNumber): float =
   ## Returns the noise at the given offset. Returns a value between 0 and 1
   ##
@@ -63,6 +71,11 @@ proc perlin*(self: Noise, x, y: SomeNumber): float =
   ## there are decimal points. If you don't want that, use the 'purePerlin'
   ## method instead
   applyOctaves(self, perlin2, [x.float, y.float].mapIt(it * 0.1))
+
+proc purePerlin*(self: Noise, x, y, z, w: SomeNumber): float =
+  ## Returns the noise at the given offset without modifying the input.
+  ## Returns a value between 0 and 1
+  applyOctaves(self, perlin3, [x.float, y.float, z.float, w.float])
 
 proc purePerlin*(self: Noise, x, y, z: SomeNumber): float =
   ## Returns the noise at the given offset without modifying the input.

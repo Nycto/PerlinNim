@@ -29,6 +29,41 @@ template withPerlinSetup(point: Point, unit, pos, faded: untyped, body: untyped)
   # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
   return (body + 1) / 2
 
+proc perlin4*(self: Noise, point: Point4D[float]): float {.inline.} =
+  ## Returns the noise at the given offset in 4D space
+
+  withPerlinSetup(point, unit, pos, faded):
+    # The hash coordinates of the 16 corners
+    let aaaa = hash(self, unit, [0, 0, 0, 0], pos)
+    let abaa = hash(self, unit, [0, 1, 0, 0], pos)
+    let aaba = hash(self, unit, [0, 0, 1, 0], pos)
+    let abba = hash(self, unit, [0, 1, 1, 0], pos)
+    let aaab = hash(self, unit, [0, 0, 0, 1], pos)
+    let abab = hash(self, unit, [0, 1, 0, 1], pos)
+    let aabb = hash(self, unit, [0, 0, 1, 1], pos)
+    let abbb = hash(self, unit, [0, 1, 1, 1], pos)
+    let baaa = hash(self, unit, [1, 0, 0, 0], pos)
+    let bbaa = hash(self, unit, [1, 1, 0, 0], pos)
+    let baba = hash(self, unit, [1, 0, 1, 0], pos)
+    let bbba = hash(self, unit, [1, 1, 1, 0], pos)
+    let baab = hash(self, unit, [1, 0, 0, 1], pos)
+    let bbab = hash(self, unit, [1, 1, 0, 1], pos)
+    let babb = hash(self, unit, [1, 0, 1, 1], pos)
+    let bbbb = hash(self, unit, [1, 1, 1, 1], pos)
+
+    let z1 = lerp(
+      lerp(lerp(aaaa, baaa, faded.x), lerp(abaa, bbaa, faded.x), faded.y),
+      lerp(lerp(aaba, baba, faded.x), lerp(abba, bbba, faded.x), faded.y),
+      faded.z,
+    )
+    let z2 = lerp(
+      lerp(lerp(aaab, baab, faded.x), lerp(abab, bbab, faded.x), faded.y),
+      lerp(lerp(aabb, babb, faded.x), lerp(abbb, bbbb, faded.x), faded.y),
+      faded.z,
+    )
+
+    lerp(z1, z2, faded.w)
+
 proc perlin3*(self: Noise, point: Point3d[float]): float {.inline.} =
   ## Returns the noise at the given offset
 

@@ -21,6 +21,9 @@ type
   Point*[S: static int, T: SomeNumber] = ## A point of N dimensions with a specific precision
     array[S, T]
 
+  Point4D*[T: SomeNumber] = ## A helper definition for a 4d point
+    Point[4, T]
+
   Point3D*[T: SomeNumber] = ## A helper definition for a 3d point
     Point[3, T]
 
@@ -28,7 +31,7 @@ type
     ## A helper definition for a 3d point
     Point[2, T]
 
-  AnyPoint*[T: SomeNumber] = Point3D[T] | Point2D[T]
+  AnyPoint*[T: SomeNumber] = Point4D[T] | Point3D[T] | Point2D[T]
 
 proc x*(point: AnyPoint): auto {.inline.} =
   point[0]
@@ -36,8 +39,11 @@ proc x*(point: AnyPoint): auto {.inline.} =
 proc y*(point: AnyPoint): auto {.inline.} =
   point[1]
 
-proc z*(point: Point3D): auto {.inline.} =
+proc z*(point: Point3D | Point4D): auto {.inline.} =
   point[2]
+
+proc w*(point: Point4D): auto {.inline.} =
+  point[3]
 
 proc i*(point: AnyPoint): auto {.inline.} =
   point[0]

@@ -44,3 +44,15 @@ suite "Perlin Noise should":
         require(pure >= 0)
         require(pure < 1)
         require(pure == noise.purePerlin(x, y))
+
+  let seedFour = randomSeed()
+  test "Produce 4D values from 0 to 1 with octaves for seed " & $seedFour:
+    let noise = newNoise(seedFour, 4, 0.1)
+    for x in -5 .. 5:
+      for y in -5 .. 5:
+        for z in -5 .. 5:
+          for w in -5 .. 5:
+            let val = noise.perlin(x, y, z, w)
+            require(val >= 0)
+            require(val < 1)
+            require(val == noise.perlin(x, y, z, w))
