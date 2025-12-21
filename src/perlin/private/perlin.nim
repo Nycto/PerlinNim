@@ -4,6 +4,13 @@
 
 import std/math, types, common
 
+proc fade(t: float): float {.inline.} =
+  ## Fade function as defined by Ken Perlin. This eases coordinate values
+  ## so that they will "ease" towards integral values. This ends up smoothing
+  ## the final output.
+  ## 6t^5 - 15t^4 + 10t^3
+  (t * t * t * (t * (t * 6 - 15) + 10))
+
 proc lerp(a, b, x: float): float {.inline.} =
   ## Linear interpolator. https://en.wikipedia.org/wiki/Linear_interpolation
   a + x * (b - a)
@@ -17,11 +24,7 @@ template withPerlinSetup(point: Point, unit, pos, faded: untyped, body: untyped)
   # Calculate the location within the cube
   let pos = point.mapIt(it - floor(it))
 
-  ## Fade function as defined by Ken Perlin. This eases coordinate values
-  ## so that they will "ease" towards integral values. This ends up smoothing
-  ## the final output.
-  ## 6t^5 - 15t^4 + 10t^3
-  let faded = pos.mapIt(it * it * it * (it * (it * 6 - 15) + 10))
+  let faded = pos.mapIt(fade(it))
 
   # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
   return (body + 1) / 2
