@@ -30,12 +30,6 @@ type
 
   AnyPoint*[T: SomeNumber] = Point3D[T] | Point2D[T]
 
-converter tupleToPoint3D*[T](tup: tuple[x, y, z: T]): Point3D[T] =
-  [tup.x, tup.y, tup.z]
-
-converter tupleToPoint2D*[T](tup: tuple[x, y: T]): Point2D[T] =
-  [tup.x, tup.y]
-
 proc x*(point: AnyPoint): auto {.inline.} =
   point[0]
 

@@ -66,9 +66,9 @@ proc hash*(
 template map*(point: Point, apply: untyped): untyped =
   ## Applies a callback to all the values in a point
   when compiles(point.z):
-    (x: apply(point.x), y: apply(point.y), z: apply(point.z))
+    [apply(point.x), apply(point.y), apply(point.z)]
   else:
-    (x: apply(point.x), y: apply(point.y))
+    [apply(point.x), apply(point.y)]
 
 template mapIt*[S: static int, T](point: Point[S, T], apply: untyped): untyped =
   ## Applies a callback to all the values in a point
