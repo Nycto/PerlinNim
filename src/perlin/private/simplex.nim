@@ -64,10 +64,6 @@ proc contribution(
     let hash = self.hash(unit, ijk.i, ijk.j, ijk.k, point, 0, 0, 0)
     return t * t * t * t * hash
 
-template sum(point: Point): untyped =
-  ## Adds all the points in a tuple
-  point.x + point.y + (when compiles(point.z): point.z else: 0)
-
 template subtract(a, b: Point): untyped =
   ## Subtracts two points
   when compiles(a.z) or compiles(b.z):
