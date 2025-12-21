@@ -70,21 +70,15 @@ template map*(point: Point, apply: untyped): untyped =
   else:
     (x: apply(point.x), y: apply(point.y))
 
-template mapIt*[S: static int, T](point: Point[S, T], kind: typedesc, apply: untyped): untyped =
+template mapIt*[S: static int, T](point: Point[S, T], apply: untyped): untyped =
   ## Applies a callback to all the values in a point
   block:
-    var output: array[S, kind]
-    block applyItBlock:
+    type InnerType = typeof(block:
       let it {.inject.} = point.x
-      output[0] = apply
+      apply)
 
-    block applyItBlock:
-      let it {.inject.} = point.y
-      output[1] = apply
-
-    when compiles(point.z):
-      block applyItBlock:
-        let it {.inject.} = point.z
-        output[2] = apply
-
+    var output: Point[S, InnerType]
+    for i in 0..<S:
+      template it(): auto {.inject.} = point[i]
+      output[i] = apply
     output

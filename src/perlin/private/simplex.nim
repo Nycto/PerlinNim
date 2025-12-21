@@ -81,17 +81,17 @@ template withSimplexSetup(
   # Skew the input space to determine which simplex cell we're in
   let skew = sum(point) * F
 
-  let floored = point.mapIt(int, int(floor(it + skew)))
+  let floored = point.mapIt(int(floor(it + skew)))
 
   let t = float(sum(floored)) * G
 
   # Unskew the cell origin back to (x,y,z) space
-  let unskewed = floored.mapIt(float, float(it) - t)
+  let unskewed = floored.mapIt(float(it) - t)
 
   # The x,y,z distances from the cell origin
   let origin = subtract(point, unskewed)
 
-  let unit = floored.mapIt(int, it and 255)
+  let unit = floored.mapIt(it and 255)
 
   # Restrict the range to 0 to 1 for convenience
   return (body + 1) / 2

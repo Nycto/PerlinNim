@@ -12,16 +12,16 @@ template withPerlinSetup(point: Point, unit, pos, faded: untyped, body: untyped)
   ## Sets up three standard variables needed to run the generation
 
   # Calculate the "unit cube" that the point asked will be located in
-  let unit = point.mapIt(int, int(floor(it)) and 255)
+  let unit = point.mapIt(int(floor(it)) and 255)
 
   # Calculate the location within the cube
-  let pos = point.mapIt(float, it - floor(it))
+  let pos = point.mapIt(it - floor(it))
 
   ## Fade function as defined by Ken Perlin. This eases coordinate values
   ## so that they will "ease" towards integral values. This ends up smoothing
   ## the final output.
   ## 6t^5 - 15t^4 + 10t^3
-  let faded = pos.mapIt(float, it * it * it * (it * (it * 6 - 15) + 10))
+  let faded = pos.mapIt(it * it * it * (it * (it * 6 - 15) + 10))
 
   # For convenience constrain to 0..1 (theoretical min/max before is -1 - 1)
   return (body + 1) / 2
