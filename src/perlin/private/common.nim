@@ -63,13 +63,6 @@ proc hash*(
   let gIndex = self.perm[unit.x + ux + self.perm[unit.y + uy]]
   return grad(gIndex, pos.x + gx, pos.y + gy)
 
-template map*(point: Point, apply: untyped): untyped =
-  ## Applies a callback to all the values in a point
-  when compiles(point.z):
-    [apply(point.x), apply(point.y), apply(point.z)]
-  else:
-    [apply(point.x), apply(point.y)]
-
 template mapIt*[S: static int, T](point: Point[S, T], apply: untyped): untyped =
   ## Applies a callback to all the values in a point
   block:
