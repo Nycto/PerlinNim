@@ -21,7 +21,7 @@
 ## * http://riven8192.blogspot.com/2010/08/calculate-perlinnoise-twice-as-fast.html
 ##
 
-import std/random, perlin/private/[perlin, simplex, types]
+import std/random, perlin/private/[perlin, simplex, types, common]
 export perlin, simplex, types
 
 proc randomSeed*(): uint32 {.inline.} =
@@ -38,13 +38,7 @@ template applyOctaves(self: Noise, callback: untyped, point: Point): float =
   var maxValue: float = 0
 
   for i in 0 .. self.octaves:
-    let noise = callback(
-      self,
-      when compiles(point.z):
-        [point.x * frequency, point.y * frequency, point.z * frequency]
-      else:
-        [point.x * frequency, point.y * frequency],
-    )
+    let noise = callback(self, point.mapIt(it * frequency))
 
     total = total + amplitude * noise
 
@@ -60,7 +54,7 @@ proc perlin*(self: Noise, x, y, z: SomeNumber): float =
   ## Note: This method tweaks the input values by just a bit to make sure
   ## there are decimal points. If you don't want that, use the 'purePerlin'
   ## method instead
-  applyOctaves(self, perlin3, [float(x) * 0.1, float(y) * 0.1, float(z) * 0.1])
+  applyOctaves(self, perlin3, [x.float, y.float, z.float].mapIt(it * 0.1))
 
 proc perlin*(self: Noise, x, y: SomeNumber): float =
   ## Returns the noise at the given offset. Returns a value between 0 and 1
@@ -68,17 +62,17 @@ proc perlin*(self: Noise, x, y: SomeNumber): float =
   ## Note: This method tweaks the input values by just a bit to make sure
   ## there are decimal points. If you don't want that, use the 'purePerlin'
   ## method instead
-  applyOctaves(self, perlin2, [float(x) * 0.1, float(y) * 0.1])
+  applyOctaves(self, perlin2, [x.float, y.float].mapIt(it * 0.1))
 
 proc purePerlin*(self: Noise, x, y, z: SomeNumber): float =
   ## Returns the noise at the given offset without modifying the input.
   ## Returns a value between 0 and 1
-  applyOctaves(self, perlin3, [float(x), float(y), float(z)])
+  applyOctaves(self, perlin3, [x.float, y.float, z.float])
 
 proc purePerlin*(self: Noise, x, y: SomeNumber): float =
   ## Returns the noise at the given offset without modifying the input.
   ## Returns a value between 0 and 1
-  applyOctaves(self, perlin2, [float(x), float(y)])
+  applyOctaves(self, perlin2, [x.float, y.float])
 
 proc simplex*(self: Noise, x, y, z: SomeNumber): float =
   ## Returns the noise at the given offset. Returns a value between 0 and 1
@@ -86,9 +80,7 @@ proc simplex*(self: Noise, x, y, z: SomeNumber): float =
   ## Note: This method tweaks the input values by just a bit to make sure
   ## there are decimal points. If you don't want that, use the 'purePerlin'
   ## method instead
-  applyOctaves(
-    self, simplex3, [float(x) * 0.1, float(y) * 0.1, float(z) * 0.1]
-  )
+  applyOctaves(self, simplex3, [x.float, y.float, z.float].mapIt(it * 0.1))
 
 proc simplex*(self: Noise, x, y: SomeNumber): float =
   ## Returns the noise at the given offset. Returns a value between 0 and 1
@@ -96,17 +88,17 @@ proc simplex*(self: Noise, x, y: SomeNumber): float =
   ## Note: This method tweaks the input values by just a bit to make sure
   ## there are decimal points. If you don't want that, use the 'purePerlin'
   ## method instead
-  applyOctaves(self, simplex2, [float(x) * 0.1, float(y) * 0.1])
+  applyOctaves(self, simplex2, [x.float, y.float].mapIt(it * 0.1))
 
 proc pureSimplex*(self: Noise, x, y, z: SomeNumber): float =
   ## Returns the noise at the given offset without modifying the input.
   ## Returns a value between 0 and 1
-  applyOctaves(self, simplex3, [float(x), float(y), float(z)])
+  applyOctaves(self, simplex3, [x.float, y.float, z.float])
 
 proc pureSimplex*(self: Noise, x, y: SomeNumber): float =
   ## Returns the noise at the given offset without modifying the input.
   ## Returns a value between 0 and 1
-  applyOctaves(self, simplex2, [float(x), float(y)])
+  applyOctaves(self, simplex2, [x.float, y.float])
 
 proc get*(self: Noise, typ: NoiseType, x, y, z: SomeNumber): float =
   ## Returns the noise at the given offset. Returns a value between 0 and 1
