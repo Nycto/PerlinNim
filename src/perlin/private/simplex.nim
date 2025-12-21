@@ -76,7 +76,7 @@ template subtract(a, b: Point): untyped =
     (x: a.x - b.x, y: a.y - b.y)
 
 template withSimplexSetup(
-    point: PointND[float], F, G, unit, origin: untyped, body: untyped
+    point: AnyPoint[float], F, G, unit, origin: untyped, body: untyped
 ): untyped =
   # Skew the input space to determine which simplex cell we're in
   let skew = sum(point) * F

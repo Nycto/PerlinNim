@@ -18,26 +18,46 @@ type
     perlin
     simplex
 
-  Point3D*[U: SomeNumber] = ## \
+  Point*[S: static int, T: SomeNumber] = ## A point of N dimensions with a specific precision
+    array[S, T]
+
+  Point3D*[T: SomeNumber] = ## A helper definition for a 3d point
+    Point[3, T]
+
+  Point2D*[T: SomeNumber] = ## \
     ## A helper definition for a 3d point
-    tuple[x, y, z: U]
+    Point[2, T]
 
-  Point2D*[U: SomeNumber] = ## \
-    ## A helper definition for a 3d point
-    tuple[x, y: U]
+  AnyPoint*[T: SomeNumber] = Point3D[T] | Point2D[T]
 
-  PointND*[U: SomeNumber] = ## \
-    ## a point of N dimensions with a specific precision
-    Point3D[U] | Point2D[U]
+converter tupleToPoint3D*[T](tup: tuple[x, y, z: T]): Point3D[T] =
+  [tup.x, tup.y, tup.z]
 
-  Point* = ## \
-    ## A 2d or 3d point with any kind of precision
-    Point3D[float] | Point3D[int] | Point2D[float] | Point2D[int]
+converter tupleToPoint2D*[T](tup: tuple[x, y: T]): Point2D[T] =
+  [tup.x, tup.y]
 
-proc octaves*(noise: Noise): auto =
+proc x*(point: AnyPoint): auto {.inline.} =
+  point[0]
+
+proc y*(point: AnyPoint): auto {.inline.} =
+  point[1]
+
+proc z*(point: Point3D): auto {.inline.} =
+  point[2]
+
+proc i*(point: AnyPoint): auto {.inline.} =
+  point[0]
+
+proc j*(point: AnyPoint): auto {.inline.} =
+  point[1]
+
+proc k*(point: Point3D): auto {.inline.} =
+  point[2]
+
+proc octaves*(noise: Noise): auto {.inline.} =
   noise.octaves
 
-proc persistence*(noise: Noise): auto =
+proc persistence*(noise: Noise): auto {.inline.} =
   noise.persistence
 
 proc shuffle[E](seed: uint32, values: var seq[E]) =
