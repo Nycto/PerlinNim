@@ -75,3 +75,21 @@ template mapIt*[S: static int, T](point: Point[S, T], apply: untyped): untyped =
       template it(): auto {.inject.} = point[i]
       output[i] = apply
     output
+
+template zipIt*[S: static int, A, B](
+    pointA: Point[S, A], pointB: Point[S, B], apply: untyped
+): untyped =
+  block:
+    type InnerType = typeOf(block:
+      let a {.inject.} = pointA[0]
+      let b {.inject.} = pointB[0]
+      apply)
+
+    var output: Point[S, InnerType]
+
+    for key in 0 ..< S:
+      template a(): auto {.inject.} = pointA[key]
+      template b(): auto {.inject.} = pointB[key]
+      output[key] = apply
+
+    output

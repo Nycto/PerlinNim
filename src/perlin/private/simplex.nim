@@ -38,23 +38,13 @@ proc getSimplexCorners(
       return (second: [0, 1, 0], third: [1, 1, 0])
 
 proc getCornerOffset(
-    point: Point2D[float], ijk: Point2D[int], multiplier: float
-): Point2D[float] {.inline.} =
+    point: AnyPoint[float], ijk: AnyPoint[int], multiplier: float
+): typeof(point) {.inline.} =
   ## Calculates the offset for various corners
-  [point.x - float(ijk.i) + multiplier, point.y - float(ijk.j) + multiplier]
-
-proc getCornerOffset(
-    point: Point3D[float], ijk: Point3D[int], multiplier: float
-): Point3D[float] {.inline.} =
-  ## Calculates the offset for various corners
-  [
-    point.x - float(ijk.i) + multiplier,
-    point.y - float(ijk.j) + multiplier,
-    point.z - float(ijk.k) + multiplier,
-  ]
+  zipIt(point, ijk, a - b.float + multiplier)
 
 proc contribution(
-    self: Noise, point: Point3D[float], unit: Point3D[int], ijk: Point3D[int]
+    self: Noise, point: Point3D[float], unit: Point3D[int], ijk: Point3d[int]
 ): float {.inline.} =
   ## Noise contributions from a corners
   let t = 0.6 - point.x * point.x - point.y * point.y - point.z * point.z
@@ -85,7 +75,7 @@ template withSimplexSetup(
   let unskewed = floored.mapIt(float(it) - t)
 
   # The x,y,z distances from the cell origin
-  let origin = subtract(point, unskewed)
+  let origin = zipIt(point, unskewed, a - b)
 
   let unit = floored.mapIt(it and 255)
 
