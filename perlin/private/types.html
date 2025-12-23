@@ -51,13 +51,14 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#7" id="57">Types</a></summary>
     <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#Noise" title="Noise = object">Noise</a></li>
+      <li><a class="reference" href="#AnyPoint" title="AnyPoint[T] = Point4D[T] | Point3D[T] | Point2D[T]">AnyPoint</a></li>
+<li><a class="reference" href="#Noise" title="Noise = object">Noise</a></li>
 <li><a class="reference" href="#NoiseType" title="NoiseType {.pure.} = enum
   perlin, simplex">NoiseType</a></li>
-<li><a class="reference" href="#Point" title="Point = Point3D[float] | Point3D[int] | Point2D[float] | Point2D[int]">Point</a></li>
-<li><a class="reference" href="#Point2D" title="Point2D[U] = tuple[x, y: U]">Point2D</a></li>
-<li><a class="reference" href="#Point3D" title="Point3D[U] = tuple[x, y, z: U]">Point3D</a></li>
-<li><a class="reference" href="#PointND" title="PointND[U] = Point3D[U] | Point2D[U]">PointND</a></li>
+<li><a class="reference" href="#Point" title="Point[S; T] = array[S, T]">Point</a></li>
+<li><a class="reference" href="#Point2D" title="Point2D[T] = Point[2, T]">Point2D</a></li>
+<li><a class="reference" href="#Point3D" title="Point3D[T] = Point[3, T]">Point3D</a></li>
+<li><a class="reference" href="#Point4D" title="Point4D[T] = Point[4, T]">Point4D</a></li>
 
     </ul>
   </details>
@@ -68,6 +69,18 @@
     <ul class="simple simple-toc-section">
       <ul class="simple nested-toc-section">buildPermutations
   <li><a class="reference" href="#buildPermutations%2Cuint32" title="buildPermutations(seed: uint32): array[0 .. 511, int]">buildPermutations(seed: uint32): array[0 .. 511, int]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">i
+  <li><a class="reference" href="#i%2CAnyPoint" title="i(point: AnyPoint): auto">i(point: AnyPoint): auto</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">j
+  <li><a class="reference" href="#j%2CAnyPoint" title="j(point: AnyPoint): auto">j(point: AnyPoint): auto</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">k
+  <li><a class="reference" href="#k%2CPoint3D" title="k(point: Point3D): auto">k(point: Point3D): auto</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">newNoise
@@ -82,6 +95,22 @@
 </ul>
 <ul class="simple nested-toc-section">persistence
   <li><a class="reference" href="#persistence%2CNoise" title="persistence(noise: Noise): auto">persistence(noise: Noise): auto</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">w
+  <li><a class="reference" href="#w%2CPoint4D" title="w(point: Point4D): auto">w(point: Point4D): auto</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">x
+  <li><a class="reference" href="#x%2CAnyPoint" title="x(point: AnyPoint): auto">x(point: AnyPoint): auto</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">y
+  <li><a class="reference" href="#y%2CAnyPoint" title="y(point: AnyPoint): auto">y(point: AnyPoint): auto</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">z
+  <li><a class="reference" href="#z" title="z(point: Point3D | Point4D): auto">z(point: Point3D | Point4D): auto</a></li>
 
 </ul>
 
@@ -100,7 +129,15 @@
     <div class="section" id="7">
   <h1><a class="toc-backref" href="#7">Types</a></h1>
   <dl class="item">
-    <div id="Noise">
+    <div id="AnyPoint">
+  <dt><pre><a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <a href="types.html#Point4D"><span class="Identifier">Point4D</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Operator">|</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Operator">|</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="Noise">
   <dt><pre><a href="types.html#Noise"><span class="Identifier">Noise</span></a> <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
   <dd>
     
@@ -123,16 +160,15 @@ The types of noise available
   </dd>
 </div>
 <div id="Point">
-  <dt><pre><a href="types.html#Point"><span class="Identifier">Point</span></a> <span class="Other">=</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span> <span class="Operator">|</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span> <span class="Operator">|</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span> <span class="Operator">|</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span></pre></dt>
+  <dt><pre><a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="Identifier">S</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">S</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
-    
-A 2d or 3d point with any kind of precision
+    A point of N dimensions with a specific precision
     
   </dd>
 </div>
 <div id="Point2D">
-  <dt><pre><a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">U</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">:</span> <span class="Identifier">U</span><span class="Other">]</span></pre></dt>
+  <dt><pre><a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="DecNumber">2</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
     
@@ -141,20 +177,18 @@ A helper definition for a 3d point
   </dd>
 </div>
 <div id="Point3D">
-  <dt><pre><a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">U</span><span class="Other">]</span> <span class="Other">=</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">U</span><span class="Other">]</span></pre></dt>
+  <dt><pre><a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="DecNumber">3</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
-    
-A helper definition for a 3d point
+    A helper definition for a 3d point
     
   </dd>
 </div>
-<div id="PointND">
-  <dt><pre><a href="types.html#PointND"><span class="Identifier">PointND</span></a><span class="Other">[</span><span class="Identifier">U</span><span class="Other">]</span> <span class="Other">=</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">U</span><span class="Other">]</span> <span class="Operator">|</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">U</span><span class="Other">]</span></pre></dt>
+<div id="Point4D">
+  <dt><pre><a href="types.html#Point4D"><span class="Identifier">Point4D</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span class="Other">=</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="DecNumber">4</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span></pre></dt>
   <dd>
     
-    
-a point of N dimensions with a specific precision
+    A helper definition for a 4d point
     
   </dd>
 </div>
@@ -171,6 +205,39 @@ a point of N dimensions with a specific precision
   <dd>
     
     Returns a hash lookup table. It is all the numbers from 0 to 255 (inclusive) in a randomly sorted array, twice over
+    
+  </dd>
+</div>
+
+</div>
+<div id="i-procs-all">
+  <div id="i,AnyPoint">
+  <dt><pre><span class="Keyword">proc</span> <a href="#i%2CAnyPoint"><span class="Identifier">i</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="j-procs-all">
+  <div id="j,AnyPoint">
+  <dt><pre><span class="Keyword">proc</span> <a href="#j%2CAnyPoint"><span class="Identifier">j</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="k-procs-all">
+  <div id="k,Point3D">
+  <dt><pre><span class="Keyword">proc</span> <a href="#k%2CPoint3D"><span class="Identifier">k</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
     
   </dd>
 </div>
@@ -213,7 +280,7 @@ a point of N dimensions with a specific precision
 </div>
 <div id="octaves-procs-all">
   <div id="octaves,Noise">
-  <dt><pre><span class="Keyword">proc</span> <a href="#octaves%2CNoise"><span class="Identifier">octaves</span></a><span class="Other">(</span><span class="Identifier">noise</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#octaves%2CNoise"><span class="Identifier">octaves</span></a><span class="Other">(</span><span class="Identifier">noise</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
     
@@ -224,7 +291,51 @@ a point of N dimensions with a specific precision
 </div>
 <div id="persistence-procs-all">
   <div id="persistence,Noise">
-  <dt><pre><span class="Keyword">proc</span> <a href="#persistence%2CNoise"><span class="Identifier">persistence</span></a><span class="Other">(</span><span class="Identifier">noise</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dt><pre><span class="Keyword">proc</span> <a href="#persistence%2CNoise"><span class="Identifier">persistence</span></a><span class="Other">(</span><span class="Identifier">noise</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="w-procs-all">
+  <div id="w,Point4D">
+  <dt><pre><span class="Keyword">proc</span> <a href="#w%2CPoint4D"><span class="Identifier">w</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#Point4D"><span class="Identifier">Point4D</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="x-procs-all">
+  <div id="x,AnyPoint">
+  <dt><pre><span class="Keyword">proc</span> <a href="#x%2CAnyPoint"><span class="Identifier">x</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="y-procs-all">
+  <div id="y,AnyPoint">
+  <dt><pre><span class="Keyword">proc</span> <a href="#y%2CAnyPoint"><span class="Identifier">y</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="z-procs-all">
+  <div id="z">
+  <dt><pre><span class="Keyword">proc</span> <a href="#z"><span class="Identifier">z</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a> <span class="Operator">|</span> <a href="types.html#Point4D"><span class="Identifier">Point4D</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span> {.<span class="Identifier">inline</span>.}</pre></dt>
   <dd>
     
     
@@ -243,7 +354,7 @@ a point of N dimensions with a specific precision
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-06 18:29:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-23 16:31:19 UTC</small>
       </div>
     </div>
   </div>

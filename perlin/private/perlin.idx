@@ -1,3 +1,4 @@
 nimTitle	perlin	perlin/private/perlin.html	module src/perlin/private/perlin		0
-nim	perlin3	perlin/private/perlin.html#perlin3,Noise,Point3D[float]	proc perlin3(self: Noise; point: Point3D[float]): float		29
-nim	perlin2	perlin/private/perlin.html#perlin2,Noise,Point2D[float]	proc perlin2(self: Noise; point: Point2D[float]): float		48
+nim	perlin4	perlin/private/perlin.html#perlin4,Noise,Point4D[float]	proc perlin4(self: Noise; point: Point4D[float]): float		32
+nim	perlin3	perlin/private/perlin.html#perlin3,Noise,Point3D[float]	proc perlin3(self: Noise; point: Point3D[float]): float		67
+nim	perlin2	perlin/private/perlin.html#perlin2,Noise,Point2D[float]	proc perlin2(self: Noise; point: Point2D[float]): float		86

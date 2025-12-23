@@ -1,22 +1,24 @@
 nimTitle	perlin	perlin.html	module src/perlin		0
 nim	randomSeed	perlin.html#randomSeed	proc randomSeed(): uint32		27
-nim	perlin	perlin.html#perlin,Noise,,,	proc perlin(self: Noise; x, y, z: int | float): float		57
-nim	perlin	perlin.html#perlin,Noise,,	proc perlin(self: Noise; x, y: int | float): float		65
-nim	purePerlin	perlin.html#purePerlin,Noise,,,	proc purePerlin(self: Noise; x, y, z: int | float): float		73
-nim	purePerlin	perlin.html#purePerlin,Noise,,	proc purePerlin(self: Noise; x, y: int | float): float		78
-nim	simplex	perlin.html#simplex,Noise,,,	proc simplex(self: Noise; x, y, z: int | float): float		83
-nim	simplex	perlin.html#simplex,Noise,,	proc simplex(self: Noise; x, y: int | float): float		93
-nim	pureSimplex	perlin.html#pureSimplex,Noise,,,	proc pureSimplex(self: Noise; x, y, z: int | float): float		101
-nim	pureSimplex	perlin.html#pureSimplex,Noise,,	proc pureSimplex(self: Noise; x, y: int | float): float		106
-nim	get	perlin.html#get,Noise,NoiseType,,,	proc get(self: Noise; typ: NoiseType; x, y, z: int | float): float		111
-nim	get	perlin.html#get,Noise,NoiseType,,	proc get(self: Noise; typ: NoiseType; x, y: int | float): float		123
-nim	pureGet	perlin.html#pureGet,Noise,NoiseType,,,	proc pureGet(self: Noise; typ: NoiseType; x, y, z: int | float): float		135
-nim	pureGet	perlin.html#pureGet,Noise,NoiseType,,	proc pureGet(self: Noise; typ: NoiseType; x, y: int | float): float		144
-nimgrp	puresimplex	perlin.html#pureSimplex-procs-all	proc		101
-nimgrp	pureget	perlin.html#pureGet-procs-all	proc		135
-nimgrp	get	perlin.html#get-procs-all	proc		111
-nimgrp	perlin	perlin.html#perlin-procs-all	proc		57
-nimgrp	pureperlin	perlin.html#purePerlin-procs-all	proc		73
-nimgrp	simplex	perlin.html#simplex-procs-all	proc		83
+nim	perlin	perlin.html#perlin,Noise,SomeNumber,SomeNumber,SomeNumber,SomeNumber	proc perlin(self: Noise; x, y, z, w: SomeNumber): float		51
+nim	perlin	perlin.html#perlin,Noise,SomeNumber,SomeNumber,SomeNumber	proc perlin(self: Noise; x, y, z: SomeNumber): float		59
+nim	perlin	perlin.html#perlin,Noise,SomeNumber,SomeNumber	proc perlin(self: Noise; x, y: SomeNumber): float		67
+nim	purePerlin	perlin.html#purePerlin,Noise,SomeNumber,SomeNumber,SomeNumber,SomeNumber	proc purePerlin(self: Noise; x, y, z, w: SomeNumber): float		75
+nim	purePerlin	perlin.html#purePerlin,Noise,SomeNumber,SomeNumber,SomeNumber	proc purePerlin(self: Noise; x, y, z: SomeNumber): float		80
+nim	purePerlin	perlin.html#purePerlin,Noise,SomeNumber,SomeNumber	proc purePerlin(self: Noise; x, y: SomeNumber): float		85
+nim	simplex	perlin.html#simplex,Noise,SomeNumber,SomeNumber,SomeNumber	proc simplex(self: Noise; x, y, z: SomeNumber): float		90
+nim	simplex	perlin.html#simplex,Noise,SomeNumber,SomeNumber	proc simplex(self: Noise; x, y: SomeNumber): float		98
+nim	pureSimplex	perlin.html#pureSimplex,Noise,SomeNumber,SomeNumber,SomeNumber	proc pureSimplex(self: Noise; x, y, z: SomeNumber): float		106
+nim	pureSimplex	perlin.html#pureSimplex,Noise,SomeNumber,SomeNumber	proc pureSimplex(self: Noise; x, y: SomeNumber): float		111
+nim	get	perlin.html#get,Noise,NoiseType,SomeNumber,SomeNumber,SomeNumber	proc get(self: Noise; typ: NoiseType; x, y, z: SomeNumber): float		116
+nim	get	perlin.html#get,Noise,NoiseType,SomeNumber,SomeNumber	proc get(self: Noise; typ: NoiseType; x, y: SomeNumber): float		128
+nim	pureGet	perlin.html#pureGet,Noise,NoiseType,SomeNumber,SomeNumber,SomeNumber	proc pureGet(self: Noise; typ: NoiseType; x, y, z: SomeNumber): float		140
+nim	pureGet	perlin.html#pureGet,Noise,NoiseType,SomeNumber,SomeNumber	proc pureGet(self: Noise; typ: NoiseType; x, y: SomeNumber): float		149
+nimgrp	puresimplex	perlin.html#pureSimplex-procs-all	proc		106
+nimgrp	pureget	perlin.html#pureGet-procs-all	proc		140
+nimgrp	get	perlin.html#get-procs-all	proc		116
+nimgrp	perlin	perlin.html#perlin-procs-all	proc		51
+nimgrp	pureperlin	perlin.html#purePerlin-procs-all	proc		75
+nimgrp	simplex	perlin.html#simplex-procs-all	proc		90
 heading	Simplex Noise	perlin.html#simplex-noise	 Simplex Noise		0
 heading	Perlin Noise	perlin.html#perlin-noise	 Perlin Noise		0

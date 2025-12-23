@@ -1,7 +1,11 @@
 nimTitle	common	perlin/private/common.html	module src/perlin/private/common		0
-nim	hash	perlin/private/common.html#hash.t,Noise,Point3D[int],untyped,untyped,untyped,Point3D[float],untyped,untyped,untyped	template hash(self: Noise; unit: Point3D[int]; ux, uy, uz: untyped; pos: Point3D[float];\n     gx, gy, gz: untyped): untyped		7
-nim	hash	perlin/private/common.html#hash.t,Noise,Point2D[int],untyped,untyped,Point2D[float],untyped,untyped	template hash(self: Noise; unit: Point2D[int]; ux, uy: untyped; pos: Point2D[float];\n     gx, gy: untyped): untyped		19
-nim	map	perlin/private/common.html#map.t,Point,untyped	template map(point: Point; apply: untyped): untyped		31
-nim	mapIt	perlin/private/common.html#mapIt.t,Point,typedesc,untyped	template mapIt(point: Point; kind: typedesc; apply: untyped): untyped		38
-nim	grad	perlin/private/common.html#grad,int,float,float,float	proc grad(hash: int; x, y, z: float): float		55
-nimgrp	hash	perlin/private/common.html#hash-templates-all	template		7
+nim	grad	perlin/private/common.html#grad,int,Point4D[float]	proc grad(hash: int; p: Point4D[float]): float		82
+nim	grad	perlin/private/common.html#grad,int,Point3D[float]	proc grad(hash: int; p: Point3D[float]): float		85
+nim	grad	perlin/private/common.html#grad,int,Point2D[float]	proc grad(hash: int; p: Point2D[float]): float		88
+nim	mapIt	perlin/private/common.html#mapIt.t,Point[S,T],untyped	template mapIt[S: static int; T](point: Point[S, T]; apply: untyped): untyped		91
+nim	zipIt	perlin/private/common.html#zipIt.t,Point[S,A],Point[S,B],untyped	template zipIt[S: static int; A, B](pointA: Point[S, A]; pointB: Point[S, B];\n                           apply: untyped): untyped		104
+nim	calculatePerm	perlin/private/common.html#calculatePerm,Noise,AnyPoint[int]	proc calculatePerm(noise: Noise; coords: AnyPoint[int]): int		122
+nim	hash	perlin/private/common.html#hash,Noise,AnyPoint[int],AnyPoint[int],AnyPoint[float],AnyPoint	proc hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float];\n     g: AnyPoint): float		129
+nim	hash	perlin/private/common.html#hash,Noise,AnyPoint[int],AnyPoint[int],AnyPoint[float]	proc hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float]): float		141
+nimgrp	grad	perlin/private/common.html#grad-procs-all	proc		82
+nimgrp	hash	perlin/private/common.html#hash-procs-all	proc		129

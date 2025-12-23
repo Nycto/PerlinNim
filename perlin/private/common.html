@@ -54,8 +54,21 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#12" id="62">Procs</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">grad
-  <li><a class="reference" href="#grad%2Cint%2Cfloat%2Cfloat%2Cfloat" title="grad(hash: int; x, y, z: float): float">grad(hash: int; x, y, z: float): float</a></li>
+      <ul class="simple nested-toc-section">calculatePerm
+  <li><a class="reference" href="#calculatePerm%2CNoise%2CAnyPoint%5Bint%5D" title="calculatePerm(noise: Noise; coords: AnyPoint[int]): int">calculatePerm(noise: Noise; coords: AnyPoint[int]): int</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">grad
+  <li><a class="reference" href="#grad%2Cint%2CPoint2D%5Bfloat%5D" title="grad(hash: int; p: Point2D[float]): float">grad(hash: int; p: Point2D[float]): float</a></li>
+<li><a class="reference" href="#grad%2Cint%2CPoint3D%5Bfloat%5D" title="grad(hash: int; p: Point3D[float]): float">grad(hash: int; p: Point3D[float]): float</a></li>
+<li><a class="reference" href="#grad%2Cint%2CPoint4D%5Bfloat%5D" title="grad(hash: int; p: Point4D[float]): float">grad(hash: int; p: Point4D[float]): float</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">hash
+  <li><a class="reference" href="#hash%2CNoise%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bfloat%5D" title="hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float]): float">hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float]): float</a></li>
+<li><a class="reference" href="#hash%2CNoise%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bfloat%5D%2CAnyPoint" title="hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float];
+     g: AnyPoint): float">hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float];
+     g: AnyPoint): float</a></li>
 
 </ul>
 
@@ -66,21 +79,14 @@
   <details open>
     <summary><a class="reference reference-toplevel" href="#18" id="68">Templates</a></summary>
     <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">hash
-  <li><a class="reference" href="#hash.t%2CNoise%2CPoint2D%5Bint%5D%2Cuntyped%2Cuntyped%2CPoint2D%5Bfloat%5D%2Cuntyped%2Cuntyped" title="hash(self: Noise; unit: Point2D[int]; ux, uy: untyped; pos: Point2D[float];
-     gx, gy: untyped): untyped">hash(self: Noise; unit: Point2D[int]; ux, uy: untyped; pos: Point2D[float];
-     gx, gy: untyped): untyped</a></li>
-<li><a class="reference" href="#hash.t%2CNoise%2CPoint3D%5Bint%5D%2Cuntyped%2Cuntyped%2Cuntyped%2CPoint3D%5Bfloat%5D%2Cuntyped%2Cuntyped%2Cuntyped" title="hash(self: Noise; unit: Point3D[int]; ux, uy, uz: untyped; pos: Point3D[float];
-     gx, gy, gz: untyped): untyped">hash(self: Noise; unit: Point3D[int]; ux, uy, uz: untyped; pos: Point3D[float];
-     gx, gy, gz: untyped): untyped</a></li>
+      <ul class="simple nested-toc-section">mapIt
+  <li><a class="reference" href="#mapIt.t%2CPoint%5BS%2CT%5D%2Cuntyped" title="mapIt[S: static int; T](point: Point[S, T]; apply: untyped): untyped">mapIt[S: static int; T](point: Point[S, T]; apply: untyped): untyped</a></li>
 
 </ul>
-<ul class="simple nested-toc-section">map
-  <li><a class="reference" href="#map.t%2CPoint%2Cuntyped" title="map(point: Point; apply: untyped): untyped">map(point: Point; apply: untyped): untyped</a></li>
-
-</ul>
-<ul class="simple nested-toc-section">mapIt
-  <li><a class="reference" href="#mapIt.t%2CPoint%2Ctypedesc%2Cuntyped" title="mapIt(point: Point; kind: typedesc; apply: untyped): untyped">mapIt(point: Point; kind: typedesc; apply: untyped): untyped</a></li>
+<ul class="simple nested-toc-section">zipIt
+  <li><a class="reference" href="#zipIt.t%2CPoint%5BS%2CA%5D%2CPoint%5BS%2CB%5D%2Cuntyped" title="zipIt[S: static int; A, B](pointA: Point[S, A]; pointB: Point[S, B];
+                           apply: untyped): untyped">zipIt[S: static int; A, B](pointA: Point[S, A]; pointB: Point[S, B];
+                           apply: untyped): untyped</a></li>
 
 </ul>
 
@@ -105,13 +111,63 @@
 <div class="section" id="12">
   <h1><a class="toc-backref" href="#12">Procs</a></h1>
   <dl class="item">
-    <div id="grad-procs-all">
-  <div id="grad,int,float,float,float">
-  <dt><pre><span class="Keyword">proc</span> <a href="#grad%2Cint%2Cfloat%2Cfloat%2Cfloat"><span class="Identifier">grad</span></a><span class="Other">(</span><span class="Identifier">hash</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">,</span> <span class="Identifier">y</span><span class="Other">,</span> <span class="Identifier">z</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <div id="calculatePerm-procs-all">
+  <div id="calculatePerm,Noise,AnyPoint[int]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#calculatePerm%2CNoise%2CAnyPoint%5Bint%5D"><span class="Identifier">calculatePerm</span></a><span class="Other">(</span><span class="Identifier">noise</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">;</span> <span class="Identifier">coords</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span></pre></dt>
+  <dd>
+    
+    Calculates the permutation for a set of coordinates. This winds up looking like: <tt class="docutils literal"><span class="pre"><span class="Identifier">perm</span><span class="Punctuation">[</span><span class="Identifier">ix0</span> <span class="Operator">+</span> <span class="Identifier">perm</span><span class="Punctuation">[</span><span class="Identifier">iy0</span> <span class="Operator">+</span> <span class="Identifier">perm</span><span class="Punctuation">[</span><span class="Identifier">iz0</span><span class="Punctuation">]</span><span class="Punctuation">]</span><span class="Punctuation">]</span></span></tt>
+    
+  </dd>
+</div>
+
+</div>
+<div id="grad-procs-all">
+  <div id="grad,int,Point2D[float]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#grad%2Cint%2CPoint2D%5Bfloat%5D"><span class="Identifier">grad</span></a><span class="Other">(</span><span class="Identifier">hash</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
   <dd>
     
-    Calculate the dot product of a randomly selected gradient vector and the 8 location vectors
+    
+    
+  </dd>
+</div>
+<div id="grad,int,Point3D[float]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#grad%2Cint%2CPoint3D%5Bfloat%5D"><span class="Identifier">grad</span></a><span class="Other">(</span><span class="Identifier">hash</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+<div id="grad,int,Point4D[float]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#grad%2Cint%2CPoint4D%5Bfloat%5D"><span class="Identifier">grad</span></a><span class="Other">(</span><span class="Identifier">hash</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <a href="types.html#Point4D"><span class="Identifier">Point4D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    
+    
+  </dd>
+</div>
+
+</div>
+<div id="hash-procs-all">
+  <div id="hash,Noise,AnyPoint[int],AnyPoint[int],AnyPoint[float]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CNoise%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bfloat%5D"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">;</span> <span class="Identifier">unit</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">u</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span>
+          <span class="Identifier">pos</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Generates the hash coordinate for a point
+    
+  </dd>
+</div>
+<div id="hash,Noise,AnyPoint[int],AnyPoint[int],AnyPoint[float],AnyPoint">
+  <dt><pre><span class="Keyword">proc</span> <a href="#hash%2CNoise%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bfloat%5D%2CAnyPoint"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">;</span> <span class="Identifier">unit</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">u</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span>
+          <span class="Identifier">pos</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">g</span><span class="Other">:</span> <a href="types.html#AnyPoint"><span class="Identifier">AnyPoint</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Generates the hash coordinate for a point
     
   </dd>
 </div>
@@ -123,30 +179,9 @@
 <div class="section" id="18">
   <h1><a class="toc-backref" href="#18">Templates</a></h1>
   <dl class="item">
-    <div id="hash-templates-all">
-  <div id="hash.t,Noise,Point2D[int],untyped,untyped,Point2D[float],untyped,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#hash.t%2CNoise%2CPoint2D%5Bint%5D%2Cuntyped%2Cuntyped%2CPoint2D%5Bfloat%5D%2Cuntyped%2Cuntyped"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">;</span> <span class="Identifier">unit</span><span class="Other">:</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">ux</span><span class="Other">,</span> <span class="Identifier">uy</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">;</span>
-              <span class="Identifier">pos</span><span class="Other">:</span> <a href="types.html#Point2D"><span class="Identifier">Point2D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">gx</span><span class="Other">,</span> <span class="Identifier">gy</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    Generates the hash coordinate given three expressions
-    
-  </dd>
-</div>
-<div id="hash.t,Noise,Point3D[int],untyped,untyped,untyped,Point3D[float],untyped,untyped,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#hash.t%2CNoise%2CPoint3D%5Bint%5D%2Cuntyped%2Cuntyped%2Cuntyped%2CPoint3D%5Bfloat%5D%2Cuntyped%2Cuntyped%2Cuntyped"><span class="Identifier">hash</span></a><span class="Other">(</span><span class="Identifier">self</span><span class="Other">:</span> <a href="types.html#Noise"><span class="Identifier">Noise</span></a><span class="Other">;</span> <span class="Identifier">unit</span><span class="Other">:</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">ux</span><span class="Other">,</span> <span class="Identifier">uy</span><span class="Other">,</span> <span class="Identifier">uz</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">;</span>
-              <span class="Identifier">pos</span><span class="Other">:</span> <a href="types.html#Point3D"><span class="Identifier">Point3D</span></a><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">gx</span><span class="Other">,</span> <span class="Identifier">gy</span><span class="Other">,</span> <span class="Identifier">gz</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-  <dd>
-    
-    Generates the hash coordinate given three expressions
-    
-  </dd>
-</div>
-
-</div>
-<div id="map-templates-all">
-  <div id="map.t,Point,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#map.t%2CPoint%2Cuntyped"><span class="Identifier">map</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">;</span> <span class="Identifier">apply</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+    <div id="mapIt-templates-all">
+  <div id="mapIt.t,Point[S,T],untyped">
+  <dt><pre><span class="Keyword">template</span> <a href="#mapIt.t%2CPoint%5BS%2CT%5D%2Cuntyped"><span class="Identifier">mapIt</span></a><span class="Other">[</span><span class="Identifier">S</span><span class="Other">:</span> <span class="Identifier">static</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="Identifier">S</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">apply</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
     Applies a callback to all the values in a point
@@ -155,12 +190,13 @@
 </div>
 
 </div>
-<div id="mapIt-templates-all">
-  <div id="mapIt.t,Point,typedesc,untyped">
-  <dt><pre><span class="Keyword">template</span> <a href="#mapIt.t%2CPoint%2Ctypedesc%2Cuntyped"><span class="Identifier">mapIt</span></a><span class="Other">(</span><span class="Identifier">point</span><span class="Other">:</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">;</span> <span class="Identifier">kind</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">;</span> <span class="Identifier">apply</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+<div id="zipIt-templates-all">
+  <div id="zipIt.t,Point[S,A],Point[S,B],untyped">
+  <dt><pre><span class="Keyword">template</span> <a href="#zipIt.t%2CPoint%5BS%2CA%5D%2CPoint%5BS%2CB%5D%2Cuntyped"><span class="Identifier">zipIt</span></a><span class="Other">[</span><span class="Identifier">S</span><span class="Other">:</span> <span class="Identifier">static</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">A</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">pointA</span><span class="Other">:</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="Identifier">S</span><span class="Other">,</span> <span class="Identifier">A</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">pointB</span><span class="Other">:</span> <a href="types.html#Point"><span class="Identifier">Point</span></a><span class="Other">[</span><span class="Identifier">S</span><span class="Other">,</span> <span class="Identifier">B</span><span class="Other">]</span><span class="Other">;</span>
+                                    <span class="Identifier">apply</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
   <dd>
     
-    Applies a callback to all the values in a point
+    
     
   </dd>
 </div>
@@ -176,7 +212,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-06 18:29:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-23 16:31:19 UTC</small>
       </div>
     </div>
   </div>

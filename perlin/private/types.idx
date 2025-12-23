@@ -1,14 +1,22 @@
 nimTitle	types	perlin/private/types.html	module src/perlin/private/types		0
 nim	Noise	perlin/private/types.html#Noise	object Noise		5
 nim	NoiseType	perlin/private/types.html#NoiseType	enum NoiseType		16
-nim	Point3D	perlin/private/types.html#Point3D	tuple Point3D		21
-nim	Point2D	perlin/private/types.html#Point2D	tuple Point2D		25
-nim	PointND	perlin/private/types.html#PointND	type PointND		29
-nim	Point	perlin/private/types.html#Point	type Point		33
-nim	octaves	perlin/private/types.html#octaves,Noise	proc octaves(noise: Noise): auto		37
-nim	persistence	perlin/private/types.html#persistence,Noise	proc persistence(noise: Noise): auto		40
-nim	buildPermutations	perlin/private/types.html#buildPermutations,uint32	proc buildPermutations(seed: uint32): array[0 .. 511, int]		57
-nim	newNoise	perlin/private/types.html#newNoise,uint32,int,float	proc newNoise(seed: uint32; octaves: int = 1; persistence: float = 0.5): Noise		69
-nim	newNoise	perlin/private/types.html#newNoise,int,float	proc newNoise(octaves: int; persistence: float): Noise		79
-nim	newNoise	perlin/private/types.html#newNoise	proc newNoise(): Noise		87
-nimgrp	newnoise	perlin/private/types.html#newNoise-procs-all	proc		69
+nim	Point	perlin/private/types.html#Point	type Point		21
+nim	Point4D	perlin/private/types.html#Point4D	type Point4D		24
+nim	Point3D	perlin/private/types.html#Point3D	type Point3D		27
+nim	Point2D	perlin/private/types.html#Point2D	type Point2D		30
+nim	AnyPoint	perlin/private/types.html#AnyPoint	type AnyPoint		34
+nim	x	perlin/private/types.html#x,AnyPoint	proc x(point: AnyPoint): auto		36
+nim	y	perlin/private/types.html#y,AnyPoint	proc y(point: AnyPoint): auto		39
+nim	z	perlin/private/types.html#z	proc z(point: Point3D | Point4D): auto		42
+nim	w	perlin/private/types.html#w,Point4D	proc w(point: Point4D): auto		45
+nim	i	perlin/private/types.html#i,AnyPoint	proc i(point: AnyPoint): auto		48
+nim	j	perlin/private/types.html#j,AnyPoint	proc j(point: AnyPoint): auto		51
+nim	k	perlin/private/types.html#k,Point3D	proc k(point: Point3D): auto		54
+nim	octaves	perlin/private/types.html#octaves,Noise	proc octaves(noise: Noise): auto		57
+nim	persistence	perlin/private/types.html#persistence,Noise	proc persistence(noise: Noise): auto		60
+nim	buildPermutations	perlin/private/types.html#buildPermutations,uint32	proc buildPermutations(seed: uint32): array[0 .. 511, int]		77
+nim	newNoise	perlin/private/types.html#newNoise,uint32,int,float	proc newNoise(seed: uint32; octaves: int = 1; persistence: float = 0.5): Noise		89
+nim	newNoise	perlin/private/types.html#newNoise,int,float	proc newNoise(octaves: int; persistence: float): Noise		99
+nim	newNoise	perlin/private/types.html#newNoise	proc newNoise(): Noise		107
+nimgrp	newnoise	perlin/private/types.html#newNoise-procs-all	proc		89

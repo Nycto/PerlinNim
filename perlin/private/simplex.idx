@@ -1,3 +1,3 @@
 nimTitle	simplex	perlin/private/simplex.html	module src/perlin/private/simplex		0
-nim	simplex3	perlin/private/simplex.html#simplex3,Noise,Point3D[float]	proc simplex3(self: Noise; point: Point3D[float]): float		110
-nim	simplex2	perlin/private/simplex.html#simplex2,Noise,Point2D[float]	proc simplex2(self: Noise; point: Point2D[float]): float		128
+nim	simplex3	perlin/private/simplex.html#simplex3,Noise,Point3D[float]	proc simplex3(self: Noise; point: Point3D[float]): float		96
+nim	simplex2	perlin/private/simplex.html#simplex2,Noise,Point2D[float]	proc simplex2(self: Noise; point: Point2D[float]): float		114

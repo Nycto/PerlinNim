@@ -22,37 +22,55 @@
     <div class="container">
       <h1 class="title">Index</h1>
       Modules: <a href="perlin.html">perlin</a>, <a href="perlin/private/common.html">perlin/private/common</a>, <a href="perlin/private/perlin.html">perlin/private/perlin</a>, <a href="perlin/private/simplex.html">perlin/private/simplex</a>, <a href="perlin/private/types.html">perlin/private/types</a>.<br/><p /><h2>API symbols</h2>
-<dl><dt><a name="buildPermutations" href="#buildPermutations"><span>buildPermutations:</span></a></dt><dd><ul class="simple">
+<dl><dt><a name="AnyPoint" href="#AnyPoint"><span>AnyPoint:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: type AnyPoint" href="perlin/private/types.html#AnyPoint">types: type AnyPoint</a></li>
+          </ul></dd>
+<dt><a name="buildPermutations" href="#buildPermutations"><span>buildPermutations:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="types: proc buildPermutations(seed: uint32): array[0 .. 511, int]" href="perlin/private/types.html#buildPermutations%2Cuint32">types: proc buildPermutations(seed: uint32): array[0 .. 511, int]</a></li>
           </ul></dd>
+<dt><a name="calculatePerm" href="#calculatePerm"><span>calculatePerm:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="common: proc calculatePerm(noise: Noise; coords: AnyPoint[int]): int" href="perlin/private/common.html#calculatePerm%2CNoise%2CAnyPoint%5Bint%5D">common: proc calculatePerm(noise: Noise; coords: AnyPoint[int]): int</a></li>
+          </ul></dd>
 <dt><a name="get" href="#get"><span>get:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="perlin: proc get(self: Noise; typ: NoiseType; x, y: int | float): float" href="perlin.html#get%2CNoise%2CNoiseType%2C%2C">perlin: proc get(self: Noise; typ: NoiseType; x, y: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc get(self: Noise; typ: NoiseType; x, y: SomeNumber): float" href="perlin.html#get%2CNoise%2CNoiseType%2CSomeNumber%2CSomeNumber">perlin: proc get(self: Noise; typ: NoiseType; x, y: SomeNumber): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="perlin: proc get(self: Noise; typ: NoiseType; x, y, z: int | float): float" href="perlin.html#get%2CNoise%2CNoiseType%2C%2C%2C">perlin: proc get(self: Noise; typ: NoiseType; x, y, z: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc get(self: Noise; typ: NoiseType; x, y, z: SomeNumber): float" href="perlin.html#get%2CNoise%2CNoiseType%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc get(self: Noise; typ: NoiseType; x, y, z: SomeNumber): float</a></li>
           </ul></dd>
 <dt><a name="grad" href="#grad"><span>grad:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="common: proc grad(hash: int; x, y, z: float): float" href="perlin/private/common.html#grad%2Cint%2Cfloat%2Cfloat%2Cfloat">common: proc grad(hash: int; x, y, z: float): float</a></li>
+          data-doc-search-tag="common: proc grad(hash: int; p: Point2D[float]): float" href="perlin/private/common.html#grad%2Cint%2CPoint2D%5Bfloat%5D">common: proc grad(hash: int; p: Point2D[float]): float</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="common: proc grad(hash: int; p: Point3D[float]): float" href="perlin/private/common.html#grad%2Cint%2CPoint3D%5Bfloat%5D">common: proc grad(hash: int; p: Point3D[float]): float</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="common: proc grad(hash: int; p: Point4D[float]): float" href="perlin/private/common.html#grad%2Cint%2CPoint4D%5Bfloat%5D">common: proc grad(hash: int; p: Point4D[float]): float</a></li>
           </ul></dd>
 <dt><a name="hash" href="#hash"><span>hash:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="common: template hash(self: Noise; unit: Point2D[int]; ux, uy: untyped; pos: Point2D[float];
-     gx, gy: untyped): untyped" href="perlin/private/common.html#hash.t%2CNoise%2CPoint2D%5Bint%5D%2Cuntyped%2Cuntyped%2CPoint2D%5Bfloat%5D%2Cuntyped%2Cuntyped">common: template hash(self: Noise; unit: Point2D[int]; ux, uy: untyped; pos: Point2D[float];
-     gx, gy: untyped): untyped</a></li>
+          data-doc-search-tag="common: proc hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float]): float" href="perlin/private/common.html#hash%2CNoise%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bfloat%5D">common: proc hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float]): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="common: template hash(self: Noise; unit: Point3D[int]; ux, uy, uz: untyped; pos: Point3D[float];
-     gx, gy, gz: untyped): untyped" href="perlin/private/common.html#hash.t%2CNoise%2CPoint3D%5Bint%5D%2Cuntyped%2Cuntyped%2Cuntyped%2CPoint3D%5Bfloat%5D%2Cuntyped%2Cuntyped%2Cuntyped">common: template hash(self: Noise; unit: Point3D[int]; ux, uy, uz: untyped; pos: Point3D[float];
-     gx, gy, gz: untyped): untyped</a></li>
+          data-doc-search-tag="common: proc hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float];
+     g: AnyPoint): float" href="perlin/private/common.html#hash%2CNoise%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bint%5D%2CAnyPoint%5Bfloat%5D%2CAnyPoint">common: proc hash(self: Noise; unit: AnyPoint[int]; u: AnyPoint[int]; pos: AnyPoint[float];
+     g: AnyPoint): float</a></li>
           </ul></dd>
-<dt><a name="map" href="#map"><span>map:</span></a></dt><dd><ul class="simple">
+<dt><a name="i" href="#i"><span>i:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="common: template map(point: Point; apply: untyped): untyped" href="perlin/private/common.html#map.t%2CPoint%2Cuntyped">common: template map(point: Point; apply: untyped): untyped</a></li>
+          data-doc-search-tag="types: proc i(point: AnyPoint): auto" href="perlin/private/types.html#i%2CAnyPoint">types: proc i(point: AnyPoint): auto</a></li>
+          </ul></dd>
+<dt><a name="j" href="#j"><span>j:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: proc j(point: AnyPoint): auto" href="perlin/private/types.html#j%2CAnyPoint">types: proc j(point: AnyPoint): auto</a></li>
+          </ul></dd>
+<dt><a name="k" href="#k"><span>k:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: proc k(point: Point3D): auto" href="perlin/private/types.html#k%2CPoint3D">types: proc k(point: Point3D): auto</a></li>
           </ul></dd>
 <dt><a name="mapIt" href="#mapIt"><span>mapIt:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="common: template mapIt(point: Point; kind: typedesc; apply: untyped): untyped" href="perlin/private/common.html#mapIt.t%2CPoint%2Ctypedesc%2Cuntyped">common: template mapIt(point: Point; kind: typedesc; apply: untyped): untyped</a></li>
+          data-doc-search-tag="common: template mapIt[S: static int; T](point: Point[S, T]; apply: untyped): untyped" href="perlin/private/common.html#mapIt.t%2CPoint%5BS%2CT%5D%2Cuntyped">common: template mapIt[S: static int; T](point: Point[S, T]; apply: untyped): untyped</a></li>
           </ul></dd>
 <dt><a name="newNoise" href="#newNoise"><span>newNoise:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -76,9 +94,11 @@
           </ul></dd>
 <dt><a name="perlin" href="#perlin"><span>perlin:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="perlin: proc perlin(self: Noise; x, y: int | float): float" href="perlin.html#perlin%2CNoise%2C%2C">perlin: proc perlin(self: Noise; x, y: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc perlin(self: Noise; x, y: SomeNumber): float" href="perlin.html#perlin%2CNoise%2CSomeNumber%2CSomeNumber">perlin: proc perlin(self: Noise; x, y: SomeNumber): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="perlin: proc perlin(self: Noise; x, y, z: int | float): float" href="perlin.html#perlin%2CNoise%2C%2C%2C">perlin: proc perlin(self: Noise; x, y, z: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc perlin(self: Noise; x, y, z: SomeNumber): float" href="perlin.html#perlin%2CNoise%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc perlin(self: Noise; x, y, z: SomeNumber): float</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="perlin: proc perlin(self: Noise; x, y, z, w: SomeNumber): float" href="perlin.html#perlin%2CNoise%2CSomeNumber%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc perlin(self: Noise; x, y, z, w: SomeNumber): float</a></li>
           </ul></dd>
 <dt><a name="perlin2" href="#perlin2"><span>perlin2:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -87,6 +107,10 @@
 <dt><a name="perlin3" href="#perlin3"><span>perlin3:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="perlin: proc perlin3(self: Noise; point: Point3D[float]): float" href="perlin/private/perlin.html#perlin3%2CNoise%2CPoint3D%5Bfloat%5D">perlin: proc perlin3(self: Noise; point: Point3D[float]): float</a></li>
+          </ul></dd>
+<dt><a name="perlin4" href="#perlin4"><span>perlin4:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="perlin: proc perlin4(self: Noise; point: Point4D[float]): float" href="perlin/private/perlin.html#perlin4%2CNoise%2CPoint4D%5Bfloat%5D">perlin: proc perlin4(self: Noise; point: Point4D[float]): float</a></li>
           </ul></dd>
 <dt><a name="persistence" href="#persistence"><span>persistence:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -98,33 +122,35 @@
           </ul></dd>
 <dt><a name="Point2D" href="#Point2D"><span>Point2D:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="types: tuple Point2D" href="perlin/private/types.html#Point2D">types: tuple Point2D</a></li>
+          data-doc-search-tag="types: type Point2D" href="perlin/private/types.html#Point2D">types: type Point2D</a></li>
           </ul></dd>
 <dt><a name="Point3D" href="#Point3D"><span>Point3D:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="types: tuple Point3D" href="perlin/private/types.html#Point3D">types: tuple Point3D</a></li>
+          data-doc-search-tag="types: type Point3D" href="perlin/private/types.html#Point3D">types: type Point3D</a></li>
           </ul></dd>
-<dt><a name="PointND" href="#PointND"><span>PointND:</span></a></dt><dd><ul class="simple">
+<dt><a name="Point4D" href="#Point4D"><span>Point4D:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="types: type PointND" href="perlin/private/types.html#PointND">types: type PointND</a></li>
+          data-doc-search-tag="types: type Point4D" href="perlin/private/types.html#Point4D">types: type Point4D</a></li>
           </ul></dd>
 <dt><a name="pureGet" href="#pureGet"><span>pureGet:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="perlin: proc pureGet(self: Noise; typ: NoiseType; x, y: int | float): float" href="perlin.html#pureGet%2CNoise%2CNoiseType%2C%2C">perlin: proc pureGet(self: Noise; typ: NoiseType; x, y: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc pureGet(self: Noise; typ: NoiseType; x, y: SomeNumber): float" href="perlin.html#pureGet%2CNoise%2CNoiseType%2CSomeNumber%2CSomeNumber">perlin: proc pureGet(self: Noise; typ: NoiseType; x, y: SomeNumber): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="perlin: proc pureGet(self: Noise; typ: NoiseType; x, y, z: int | float): float" href="perlin.html#pureGet%2CNoise%2CNoiseType%2C%2C%2C">perlin: proc pureGet(self: Noise; typ: NoiseType; x, y, z: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc pureGet(self: Noise; typ: NoiseType; x, y, z: SomeNumber): float" href="perlin.html#pureGet%2CNoise%2CNoiseType%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc pureGet(self: Noise; typ: NoiseType; x, y, z: SomeNumber): float</a></li>
           </ul></dd>
 <dt><a name="purePerlin" href="#purePerlin"><span>purePerlin:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="perlin: proc purePerlin(self: Noise; x, y: int | float): float" href="perlin.html#purePerlin%2CNoise%2C%2C">perlin: proc purePerlin(self: Noise; x, y: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc purePerlin(self: Noise; x, y: SomeNumber): float" href="perlin.html#purePerlin%2CNoise%2CSomeNumber%2CSomeNumber">perlin: proc purePerlin(self: Noise; x, y: SomeNumber): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="perlin: proc purePerlin(self: Noise; x, y, z: int | float): float" href="perlin.html#purePerlin%2CNoise%2C%2C%2C">perlin: proc purePerlin(self: Noise; x, y, z: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc purePerlin(self: Noise; x, y, z: SomeNumber): float" href="perlin.html#purePerlin%2CNoise%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc purePerlin(self: Noise; x, y, z: SomeNumber): float</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="perlin: proc purePerlin(self: Noise; x, y, z, w: SomeNumber): float" href="perlin.html#purePerlin%2CNoise%2CSomeNumber%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc purePerlin(self: Noise; x, y, z, w: SomeNumber): float</a></li>
           </ul></dd>
 <dt><a name="pureSimplex" href="#pureSimplex"><span>pureSimplex:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="perlin: proc pureSimplex(self: Noise; x, y: int | float): float" href="perlin.html#pureSimplex%2CNoise%2C%2C">perlin: proc pureSimplex(self: Noise; x, y: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc pureSimplex(self: Noise; x, y: SomeNumber): float" href="perlin.html#pureSimplex%2CNoise%2CSomeNumber%2CSomeNumber">perlin: proc pureSimplex(self: Noise; x, y: SomeNumber): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="perlin: proc pureSimplex(self: Noise; x, y, z: int | float): float" href="perlin.html#pureSimplex%2CNoise%2C%2C%2C">perlin: proc pureSimplex(self: Noise; x, y, z: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc pureSimplex(self: Noise; x, y, z: SomeNumber): float" href="perlin.html#pureSimplex%2CNoise%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc pureSimplex(self: Noise; x, y, z: SomeNumber): float</a></li>
           </ul></dd>
 <dt><a name="randomSeed" href="#randomSeed"><span>randomSeed:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -132,9 +158,9 @@
           </ul></dd>
 <dt><a name="simplex" href="#simplex"><span>simplex:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="perlin: proc simplex(self: Noise; x, y: int | float): float" href="perlin.html#simplex%2CNoise%2C%2C">perlin: proc simplex(self: Noise; x, y: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc simplex(self: Noise; x, y: SomeNumber): float" href="perlin.html#simplex%2CNoise%2CSomeNumber%2CSomeNumber">perlin: proc simplex(self: Noise; x, y: SomeNumber): float</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="perlin: proc simplex(self: Noise; x, y, z: int | float): float" href="perlin.html#simplex%2CNoise%2C%2C%2C">perlin: proc simplex(self: Noise; x, y, z: int | float): float</a></li>
+          data-doc-search-tag="perlin: proc simplex(self: Noise; x, y, z: SomeNumber): float" href="perlin.html#simplex%2CNoise%2CSomeNumber%2CSomeNumber%2CSomeNumber">perlin: proc simplex(self: Noise; x, y, z: SomeNumber): float</a></li>
           </ul></dd>
 <dt><a name="simplex2" href="#simplex2"><span>simplex2:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -144,11 +170,33 @@
 <li><a class="reference external"
           data-doc-search-tag="simplex: proc simplex3(self: Noise; point: Point3D[float]): float" href="perlin/private/simplex.html#simplex3%2CNoise%2CPoint3D%5Bfloat%5D">simplex: proc simplex3(self: Noise; point: Point3D[float]): float</a></li>
           </ul></dd>
+<dt><a name="w" href="#w"><span>w:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: proc w(point: Point4D): auto" href="perlin/private/types.html#w%2CPoint4D">types: proc w(point: Point4D): auto</a></li>
+          </ul></dd>
+<dt><a name="x" href="#x"><span>x:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: proc x(point: AnyPoint): auto" href="perlin/private/types.html#x%2CAnyPoint">types: proc x(point: AnyPoint): auto</a></li>
+          </ul></dd>
+<dt><a name="y" href="#y"><span>y:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: proc y(point: AnyPoint): auto" href="perlin/private/types.html#y%2CAnyPoint">types: proc y(point: AnyPoint): auto</a></li>
+          </ul></dd>
+<dt><a name="z" href="#z"><span>z:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="types: proc z(point: Point3D | Point4D): auto" href="perlin/private/types.html#z">types: proc z(point: Point3D | Point4D): auto</a></li>
+          </ul></dd>
+<dt><a name="zipIt" href="#zipIt"><span>zipIt:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="common: template zipIt[S: static int; A, B](pointA: Point[S, A]; pointB: Point[S, B];
+                           apply: untyped): untyped" href="perlin/private/common.html#zipIt.t%2CPoint%5BS%2CA%5D%2CPoint%5BS%2CB%5D%2Cuntyped">common: template zipIt[S: static int; A, B](pointA: Point[S, A]; pointB: Point[S, B];
+                           apply: untyped): untyped</a></li>
+          </ul></dd>
 </dl>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-06 18:29:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-12-23 16:31:19 UTC</small>
       </div>
     </div>
   </div>
