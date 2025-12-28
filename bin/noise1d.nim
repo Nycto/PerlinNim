@@ -2,7 +2,7 @@
 ## Draws an 80 by 80 column of noise to the console
 ##
 
-import perlin, math, random, strutils, private/cli, sugar
+import perlin, math, random, strutils, private/cli
 
 # Seed the random number generator in Nim
 randomize()
@@ -22,42 +22,53 @@ parse(
     proc(it: int) =
       columns = it,
     ["width", "w", "cols", "columns"],
-    (it) => parseInt(it),
-    (it) => it > 0,
+    proc(it: string): int =
+      parseInt(it),
+    proc(it: int): bool =
+      it > 0,
   ),
   option(
     proc(it: int) =
       rows = it,
     ["height", "h", "rows", "r"],
-    (it) => parseInt(it),
-    (it) => it > 0,
+    proc(it: string): int =
+      parseInt(it),
+    proc(it: int): bool =
+      it > 0,
   ),
   option(
     proc(it: int) =
       octaves = it,
     ["octaves", "o"],
-    (it) => parseInt(it),
-    (it) => it > 0,
+    proc(it: string): int =
+      parseInt(it),
+    proc(it: int): bool =
+      it > 0,
   ),
   option(
     proc(it: float) =
       persistence = it,
     ["persistence", "p"],
-    (it) => parseFloat(it),
-    (it) => it > 0,
+    proc(it: string): float =
+      parseFloat(it),
+    proc(it: float): bool =
+      it > 0,
   ),
   option(
     proc(it: uint32) =
       seed = it,
     ["seed", "s"],
-    (it) => uint32(parseInt(it)),
+    proc(it: string): uint32 =
+      uint32(parseInt(it)),
   ),
   option(
     proc(it: float) =
       zoom = it,
     ["zoom", "z"],
-    (it) => parseFloat(it),
-    (it) => it > 0,
+    proc(it: string): float =
+      parseFloat(it),
+    proc(it: float): bool =
+      it > 0,
   ),
   flag(
     proc() =
