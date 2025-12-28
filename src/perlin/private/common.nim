@@ -91,13 +91,15 @@ proc grad*(hash: int, p: Point2d[float]): float {.inline.} =
 template mapIt*[S: static int, T](point: Point[S, T], apply: untyped): untyped =
   ## Applies a callback to all the values in a point
   block:
-    type InnerType = typeof(block:
-      let it {.inject.} = point.x
-      apply)
+    type InnerType = typeof(
+      block:
+        var it {.inject.} = point.x
+        apply
+    )
 
     var output: Point[S, InnerType]
-    for i in 0..<S:
-      template it(): auto {.inject.} = point[i]
+    for i in 0 ..< S:
+      let it {.inject.} = point[i]
       output[i] = apply
     output
 
@@ -105,16 +107,22 @@ template zipIt*[S: static int, A, B](
     pointA: Point[S, A], pointB: Point[S, B], apply: untyped
 ): untyped =
   block:
-    type InnerType = typeOf(block:
-      let a {.inject.} = pointA[0]
-      let b {.inject.} = pointB[0]
-      apply)
+    type InnerType = typeOf(
+      block:
+        let a {.inject.} = pointA[0]
+        let b {.inject.} = pointB[0]
+        apply
+    )
 
     var output: Point[S, InnerType]
 
     for key in 0 ..< S:
-      template a(): auto {.inject.} = pointA[key]
-      template b(): auto {.inject.} = pointB[key]
+      template a(): auto {.inject.} =
+        pointA[key]
+
+      template b(): auto {.inject.} =
+        pointB[key]
+
       output[key] = apply
 
     output
